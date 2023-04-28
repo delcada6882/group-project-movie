@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MTech PWA</string>
+    <string name="title_activity_main">MTech PWA</string>
+    <string name="package_name">edu.mtech.ioncomp23</string>
+    <string name="custom_url_scheme">edu.mtech.ioncomp23</string>
+</resources>
