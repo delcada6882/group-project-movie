@@ -31,7 +31,6 @@ export class MoviePageComponent implements OnInit {
       this.popularMovies = data.results;
     });
   }
-
   ngOnInit() {
     this.showPopularMovies();
   }
