@@ -3,29 +3,34 @@
 		<ion-buttons slot="start">
 			<ion-menu-button></ion-menu-button>
 		</ion-buttons>
-		<ion-title>{{ folder }}</ion-title>
+		<ion-title>Movie Search</ion-title>
 		<!-- this right here is only for ANDROID. -->
 	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-	<ion-header collapse="condense">
-		<ion-toolbar>
-			<ion-title size="large">{{ folder.toLocaleUpperCase() }}</ion-title>
-			<!-- This right here is only for IOS -->
-		</ion-toolbar>
-	</ion-header>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Movie Search</ion-title>
+      <!-- This right here is only for IOS -->
+    </ion-toolbar>
+  </ion-header>
+  <div class="popularMoviesSection">
+    <h1>Popular Movies</h1>
 
-	<div id="container">
-		<strong class="capitalize">{{ folder }}</strong>
-		<p>
-			Explore
-			<a
-				target="_blank"
-				rel="noopener noreferrer"
-				href="https://ionicframework.com/docs/components"
-				>UI Components</a
-			>
-		</p>
-	</div>
+    <div class="popularMovies" #popShowMore>
+      <div *ngFor="let item of popularMovies" class="popularMovieCard">
+        <ion-img src="{{ urlStart + item.poster_path }}"></ion-img>
+      </div>
+    </div>
+    <div class="showMoreSection">
+      <ion-button
+        color="secondary"
+        class="showMoreButton"
+        (click)="showMorePopularMovies(popShowMore)"
+        >{{ buttonText }}</ion-button
+      >
+    </div>
+  </div>
+  <div class="playingNow"></div>
 </ion-content>
