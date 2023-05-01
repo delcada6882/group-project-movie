@@ -9,7 +9,7 @@ import { ApiCallService } from 'src/app/services/api-call.service';
   styleUrls: ['./movie-page.component.scss'],
 })
 export class MoviePageComponent implements OnInit {
-  constructor(private ApiCallService: ApiCallService) {}
+  constructor(private ApiCallService: ApiCallService) { }
 
   popularMovies: any = [];
   urlStart = 'https://image.tmdb.org/t/p/w500';
@@ -22,6 +22,7 @@ export class MoviePageComponent implements OnInit {
       this.buttonText = 'Show More';
     }
     item.classList.toggle('popularMoviesShowMore');
+    //TODO: Add a better looking transition so that the movies don't just appear
   }
 
   showPopularMovies() {

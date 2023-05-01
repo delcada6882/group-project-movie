@@ -1,51 +1,49 @@
-app-moive-search-page {
-  ion-menu-button {
-    color: var(--ion-color-primary);
-  }
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
 
-  #container {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
-  #container strong {
-    font-size: 20px;
-    line-height: 26px;
-  }
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
 
-  #container p {
-    font-size: 16px;
-    line-height: 22px;
-    color: #8c8c8c;
-    margin: 0;
-  }
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
 
-  #container a {
-    text-decoration: none;
-  }
-  .noImageText {
-    margin-bottom: 16px;
-  }
+#container a {
+  text-decoration: none;
+}
+.noImageText {
+  margin-bottom: 16px;
+}
 
-  .posterImg {
-    border-radius: 5px;
-  }
+.posterImg {
+  border-radius: 5px;
+}
 
-  .searchArea {
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-  }
+.searchArea {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
 
-  .loadingCircle {
-    width: 100vw;
-    position: absolute;
-    transform: scale(2);
-  }
+.loadingCircle {
+  width: 100vw;
+  position: absolute;
+  transform: scale(2);
 }
