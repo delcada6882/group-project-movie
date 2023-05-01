@@ -8,8 +8,8 @@ import { Movie } from './interfaces/movie';
 })
 export class AppComponent implements OnInit {
     public appPages = [
-        { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-        { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
+        { title: 'Movie', url: '/movies', icon: 'mail' },
+        { title: 'Movie Search', url: '/movieSearch', icon: 'paper-plane' },
         { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
         { title: 'Archived', url: '/folder/archived', icon: 'archive' },
         { title: 'Trash', url: '/folder/trash', icon: 'trash' },
@@ -18,15 +18,6 @@ export class AppComponent implements OnInit {
     public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
     constructor(private ApiCallService: ApiCallService) { }
 
-    showData() {
-        this.ApiCallService.getData()
-            .subscribe((data: Movie) => {
-                console.log(data);
-            });
-    }
-
     ngOnInit() {
-        this.showData();
-
     }
 }

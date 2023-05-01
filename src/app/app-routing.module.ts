@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MoviePageComponent } from './pages/movie-page/movie-page.component';
+import { MovieSearchPageComponent } from './pages/movie-search-page/movie-search-page.component';
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'folder/Inbox',
+        redirectTo: 'folder/inbox',
         pathMatch: 'full'
     },
     {
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path: 'movies',
         component: MoviePageComponent
+    },
+    {
+        path: "movieSearch",
+        component: MovieSearchPageComponent
     }
 ];
 

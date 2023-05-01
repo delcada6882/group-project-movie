@@ -1,0 +1,32 @@
+.popularMovies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  background-color: var(--ion-color-step-150);
+  padding: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 54vh;
+}
+.popularMovieCard {
+  overflow: hidden;
+  width: 40%;
+  border-radius: 5px;
+  margin: 2% 0;
+}
+.popularMoviesSection {
+  padding: 10px;
+}
+.showMoreSection {
+  position: relative;
+  top: -2.5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: 0.5s;
+}
+.popularMoviesShowMore {
+  height: fit-content;
+  transition: 0.5s;
+}
