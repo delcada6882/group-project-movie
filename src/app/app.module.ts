@@ -20,6 +20,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 		AppRoutingModule,
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFirestoreModule,
+		HttpClientModule,
 	],
 	providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 	bootstrap: [AppComponent],

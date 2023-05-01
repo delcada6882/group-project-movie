@@ -8,15 +8,12 @@ import { Movie } from './interfaces/movie';
 })
 export class AppComponent implements OnInit {
 	public appPages = [
-		{ title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-		{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-		{ title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-		{ title: 'Archived', url: '/folder/archived', icon: 'archive' },
-		{ title: 'Trash', url: '/folder/trash', icon: 'trash' },
+		{ title: 'Profile', url: '/folder/profile', icon: 'person' },
+		{ title: 'Movies', url: '/folder/movies', icon: 'film' },
 		{ title: 'Spam', url: '/folder/spam', icon: 'warning' },
 	];
-	public labels = [
-		'Family',
+	public categories = [
+		'Family Movies',
 		'Friends',
 		'Notes',
 		'Work',
@@ -26,7 +23,12 @@ export class AppComponent implements OnInit {
 	constructor(private ApiCallService: ApiCallService) {}
 
 	showData() {
-		this.ApiCallService.getData().subscribe((data: Movie) => {
+		// this.ApiCallService.getData().subscribe((data: Movie) => {
+		// 	console.log(data);
+		// });
+		this.ApiCallService.getDataByFilter({
+			with_genres: [10770],
+		}).subscribe((data: Movie) => {
 			console.log(data);
 		});
 	}
