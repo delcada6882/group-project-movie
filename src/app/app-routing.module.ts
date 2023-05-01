@@ -14,13 +14,6 @@ const routes: Routes = [
 		loadChildren: () =>
 			import('./folder/folder.module').then((m) => m.FolderPageModule),
 	},
-	// {
-	// 	path: 'login',
-	// 	loadChildren: () =>
-	// 		import('./pages/login-page/login-page.module').then(
-	// 			(m) => m.LoginPageModule
-	// 		),
-	// },
 	{
 		path: 'movies',
 		component: MoviePageComponent,

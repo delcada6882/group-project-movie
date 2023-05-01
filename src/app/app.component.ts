@@ -13,22 +13,36 @@ export class AppComponent implements OnInit {
 		{ title: 'Spam', url: '/folder/spam', icon: 'warning' },
 	];
 	public categories = [
-		'Family Movies',
-		'Friends',
-		'Notes',
-		'Work',
-		'Travel',
-		'Reminders',
+		{ title: 'Popular', url: '/popular', icon: 'sparkles' },
+		{ title: 'Family', url: '/genre/Family', icon: 'people' },
+		{ title: 'Action', url: '/genre/Action', src: '/icon/gun.svg' },
+		{
+			title: 'Comedy',
+			url: '/genre/Comedy',
+			src: '/icon/laugh.svg',
+		},
+		{ title: 'Horror', url: '/genre/Horror', icon: 'skull' },
+		{
+			title: 'Fantasy',
+			url: '/genre/Fantasy',
+			src: '/icon/dragon-head.svg',
+		},
+		{ title: 'Drama', url: '/genre/Drama', src: '/icon/drama-masks.svg' },
 	];
+
+	public bookmarks = [
+		'Harry Potter',
+		'Lord of the Rings',
+		'Avengers',
+		'Pirates of the Caribbean',
+		'Jurassic Park',
+		'Back to the Future',
+	];
+
 	constructor(private ApiCallService: ApiCallService) {}
 
 	showData() {
-		// this.ApiCallService.getData().subscribe((data: Movie) => {
-		// 	console.log(data);
-		// });
-		this.ApiCallService.getDataByFilter({
-			with_genres: [10770],
-		}).subscribe((data: Movie) => {
+		this.ApiCallService.getData().subscribe((data: Movie) => {
 			console.log(data);
 		});
 	}
