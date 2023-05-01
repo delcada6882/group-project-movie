@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/interfaces/movie';
+import { Movie } from 'src/app/interfaces/api/movie';
 import { ApiCallService } from 'src/app/services/api-call.service';
 
 @Component({
@@ -8,35 +8,29 @@ import { ApiCallService } from 'src/app/services/api-call.service';
   styleUrls: ['./movie-search-page.component.scss'],
 })
 export class MovieSearchPageComponent implements OnInit {
+  public movieList: any = [];
 
-  constructor(private ApiCallService: ApiCallService) { }
+  public urlStart = 'https://image.tmdb.org/t/p/w500';
 
-  movieList: any = []
+  public searchMovie: String = '';
 
-  urlStart = "https://image.tmdb.org/t/p/w500"
+  public showLoading = false;
 
-  searchMovie: String = ""
-
-  showLoading = false;
-
-
+  constructor(private ApiCallService: ApiCallService) {}
 
   showData() {
-    this.ApiCallService.getData()
-      .subscribe((data: Movie) => {
-        console.log(data);
-      });
+    this.ApiCallService.getData().subscribe((data: Movie) => {
+      console.log(data);
+    });
   }
   showDataList(searchString: String) {
     this.showLoading = true;
-    this.ApiCallService.getDataBySearch(searchString)
-      .subscribe((data: any) => {
-        console.log(data)
-        this.movieList = data.results;
-        this.showLoading = false
-      });
+    this.ApiCallService.getDataBySearch(searchString).subscribe((data: any) => {
+      console.log(data);
+      this.movieList = data.results;
+      this.showLoading = false;
+    });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

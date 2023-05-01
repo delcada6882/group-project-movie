@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/interfaces/movie';
-import { MovieList } from 'src/app/interfaces/movie-list';
+import { Movie } from 'src/app/interfaces/api/movie';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
 
 @Component({
@@ -9,21 +9,19 @@ import { ApiCallService } from 'src/app/services/api-call.service';
   styleUrls: ['./movie-page.component.scss'],
 })
 export class MoviePageComponent implements OnInit {
-
-  constructor(private ApiCallService: ApiCallService) { }
+  constructor(private ApiCallService: ApiCallService) {}
 
   popularMovies: any = [];
-  urlStart = "https://image.tmdb.org/t/p/w500"
-  buttonText = "Show More"
+  urlStart = 'https://image.tmdb.org/t/p/w500';
+  buttonText = 'Show More';
 
   showMorePopularMovies(item: Element) {
-    if (this.buttonText == "Show More") {
-      this.buttonText = "Show Less"
+    if (this.buttonText == 'Show More') {
+      this.buttonText = 'Show Less';
+    } else {
+      this.buttonText = 'Show More';
     }
-    else {
-      this.buttonText = "Show More"
-    }
-    item.classList.toggle("popularMoviesShowMore");
+    item.classList.toggle('popularMoviesShowMore');
   }
 
   showPopularMovies() {
@@ -36,5 +34,4 @@ export class MoviePageComponent implements OnInit {
   ngOnInit() {
     this.showPopularMovies();
   }
-
 }

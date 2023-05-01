@@ -29,7 +29,6 @@
     <ion-button color="secondary" (click)="showDataList(searchMovie)"
       >Search</ion-button
     >
-    <!-- <ion-select></ion-select> -->
   </div>
   <ion-spinner *ngIf="showLoading" class="loadingCircle"></ion-spinner>
   <ion-card *ngFor="let item of movieList">
@@ -46,17 +45,4 @@
       <p>{{ item.overview }}</p>
     </ion-card-content>
   </ion-card>
-
-  <!-- <div id="container">
-    <strong class="capitalize">AHHHHHH</strong>
-    <p>
-      Explore
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://ionicframework.com/docs/components"
-        >UI Components</a
-      >
-    </p>
-  </div> -->
 </ion-content>
