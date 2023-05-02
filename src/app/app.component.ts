@@ -8,9 +8,9 @@ import { Movie } from './interfaces/movie';
 })
 export class AppComponent implements OnInit {
 	public appPages = [
-		{ title: 'Profile', url: '/folder/profile', icon: 'person' },
-		{ title: 'Movies', url: '/folder/movies', icon: 'film' },
-		{ title: 'Spam', url: '/folder/spam', icon: 'warning' },
+		{ title: 'Profile', url: '/profile', icon: 'person' },
+		{ title: 'Movies', url: '/movies', icon: 'film' },
+		{ title: 'Spam', url: '/spam', icon: 'warning' },
 	];
 	public categories = [
 		{ title: 'Popular', url: '/popular', icon: 'sparkles' },

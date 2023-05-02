@@ -11,9 +11,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { MoviePageComponent } from './pages/movie-page/movie-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [
+		AppComponent,
+		MoviePageComponent,
+		LoginPageComponent,
+		RegisterPageComponent,
+	],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(),
@@ -21,6 +30,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFirestoreModule,
 		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
 	],
 	providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 	bootstrap: [AppComponent],

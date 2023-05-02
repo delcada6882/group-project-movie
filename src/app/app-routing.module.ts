@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MoviePageComponent } from './pages/movie-page/movie-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 const routes: Routes = [
 	{
@@ -15,8 +16,24 @@ const routes: Routes = [
 			import('./folder/folder.module').then((m) => m.FolderPageModule),
 	},
 	{
+		path: 'profile',
+		component: LoginPageComponent,
+	},
+	{
+		path: 'login',
+		component: LoginPageComponent,
+	},
+	{
+		path: 'register',
+		component: RegisterPageComponent,
+	},
+	{
 		path: 'movies',
 		component: MoviePageComponent,
+	},
+	{
+		path: '**',
+		redirectTo: 'folder/Inbox',
 	},
 ];
 
