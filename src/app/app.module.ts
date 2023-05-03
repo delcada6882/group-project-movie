@@ -9,12 +9,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment.prod';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireModule } from '@angular/fire/compat';
 import { MoviePageComponent } from './pages/movie-page/movie-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { AuthService } from './services/auth/auth.service';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 @NgModule({
 	declarations: [
@@ -27,13 +32,20 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
-		AngularFireModule.initializeApp(environment.firebaseConfig),
-		AngularFirestoreModule,
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
+
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireAuthModule,
+		AngularFirestoreModule,
+		AngularFireStorageModule,
+		AngularFireDatabaseModule,
 	],
-	providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+	providers: [
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		AuthService,
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

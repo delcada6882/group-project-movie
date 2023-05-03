@@ -1,10 +1,11 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { User } from './../../interfaces/firebase/user';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 // class UserModel {
-// 	constructor(public username: string, public password: string) {}
+// 	constructor(public email: string, public password: string) {}
 // }
 
 @Component({
@@ -14,20 +15,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 	public userFormGroup = new FormGroup({
-		username: new FormControl(''),
+		email: new FormControl(''),
 		password: new FormControl(''),
 	});
-	public updateUserProfile() {
-		console.log(this.userFormGroup);
-	}
-	public username?: User['username'];
-	public password?: User['password'];
+	public email?: string;
+	public password?: string;
 
-	constructor(private UserService: UserService) {}
+	constructor(
+		private UserService: UserService,
+		public AuthService: AuthService
+	) {}
 
-	ngOnInit() {
+	async ngOnInit() {
 		this.UserService.getUserObservable()?.subscribe((data) => {
 			console.log(data);
 		});
+	}
+
+	public async updateUserProfile() {
+		if (!this.userFormGroup.valid) return;
+		if (!this.userFormGroup.value.email) return;
+		if (!this.userFormGroup.value.password) return;
+
+		try {
+			await this.AuthService.SignIn(
+				this.userFormGroup.value.email,
+				this.userFormGroup.value.password
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	public signInWithGoogle() {
+		this.AuthService.GoogleAuth();
 	}
 }
