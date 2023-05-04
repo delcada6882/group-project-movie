@@ -1,53 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from './services/api-call.service';
-import { Movie } from './interfaces/movie';
+import { Movie } from './interfaces/api/movie';
 @Component({
-	selector: 'app-root',
-	templateUrl: 'app.component.html',
-	styleUrls: ['app.component.scss'],
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-	public appPages = [
-		{ title: 'Profile', url: '/profile', icon: 'person' },
-		{ title: 'Movies', url: '/movies', icon: 'film' },
-		{ title: 'Spam', url: '/spam', icon: 'warning' },
-	];
-	public categories = [
-		{ title: 'Popular', url: '/popular', icon: 'sparkles' },
-		{ title: 'Family', url: '/genre/Family', icon: 'people' },
-		{ title: 'Action', url: '/genre/Action', src: '/icon/gun.svg' },
-		{
-			title: 'Comedy',
-			url: '/genre/Comedy',
-			src: '/icon/laugh.svg',
-		},
-		{ title: 'Horror', url: '/genre/Horror', icon: 'skull' },
-		{
-			title: 'Fantasy',
-			url: '/genre/Fantasy',
-			src: '/icon/dragon-head.svg',
-		},
-		{ title: 'Drama', url: '/genre/Drama', src: '/icon/drama-masks.svg' },
-	];
+    public appPages = [
+        { title: 'Profile', url: '/profile', icon: 'person' },
+        { title: 'Movies', url: '/movies', icon: 'film' },
+        { title: 'Spam', url: '/spam', icon: 'warning' },
+    ];
+    public categories = [
+        { title: 'Popular', url: '/popular', icon: 'sparkles' },
+        { title: 'Family', url: '/genre/Family', icon: 'people' },
+        { title: 'Action', url: '/genre/Action', src: '/icon/gun.svg' },
+        {
+            title: 'Comedy',
+            url: '/genre/Comedy',
+            src: '/icon/laugh.svg',
+        },
+        { title: 'Horror', url: '/genre/Horror', icon: 'skull' },
+        {
+            title: 'Fantasy',
+            url: '/genre/Fantasy',
+            src: '/icon/dragon-head.svg',
+        },
+        { title: 'Drama', url: '/genre/Drama', src: '/icon/drama-masks.svg' },
+    ];
 
-	public bookmarks = [
-		'Harry Potter',
-		'Lord of the Rings',
-		'Avengers',
-		'Pirates of the Caribbean',
-		'Jurassic Park',
-		'Back to the Future',
-	];
+    public bookmarks = [
+        'Harry Potter',
+        'Lord of the Rings',
+        'Avengers',
+        'Pirates of the Caribbean',
+        'Jurassic Park',
+        'Back to the Future',
+    ];
 
-	constructor(private ApiCallService: ApiCallService) {}
+    constructor(private ApiCallService: ApiCallService) { }
 
-	showData() {
-		this.ApiCallService.getData().subscribe((data: Movie) => {
-			console.log(data);
-		});
-	}
+    showData() {
+        this.ApiCallService.getData().subscribe((data: Movie) => {
+            console.log(data);
+        });
+    }
 
-	ngOnInit() {
-		this.showData();
-	}
+    ngOnInit() {
+        this.showData();
+    }
 }

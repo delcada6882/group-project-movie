@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>Popular Movies</ion-title>
+		<!-- this right here is only for ANDROID. -->
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">Popular Movies</ion-title>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
+
+	<div class="popularMoviesSection">
+		<div
+			*ngFor="let item of popularMovies"
+			class="popularMovieCard"
+			#movieCard
+			(click)="clickAnim(movieCard)"
+		>
+			<ion-img src="{{ urlStart + item.poster_path }}"></ion-img>
+		</div>
+	</div>
+	<div>
+		<app-paginator
+			#child
+			[pageNumVar]="3"
+			[totalPageNum]="totalNumSend"
+			[moviesArr]="popularMovies"
+			(childToParent)="childToParent($event)"
+		></app-paginator>
+	</div>
+</ion-content>
