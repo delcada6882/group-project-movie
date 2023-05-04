@@ -1,12 +1,7 @@
 import { AuthService } from './../../services/auth/auth.service';
-import { User } from './../../interfaces/firebase/user';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-
-// class UserModel {
-// 	constructor(public email: string, public password: string) {}
-// }
 
 @Component({
 	selector: 'app-login-page',
@@ -47,7 +42,7 @@ export class LoginPageComponent implements OnInit {
 		}
 	}
 
-	public signInWithGoogle() {
-		this.AuthService.GoogleAuth();
+	public async signInWithGoogle() {
+		await this.AuthService.GoogleAuth();
 	}
 }

@@ -17,7 +17,7 @@ function handleError(err: any) {
 	else console.error(`Something went HORRIBLY wrong!\n${err}`);
 }
 
-const SUCCESS_REDIRECT = '/movies';
+const SUCCESS_REDIRECT = '/profile';
 
 @Injectable({
 	providedIn: 'root',
@@ -36,8 +36,13 @@ export class AuthService {
 	}
 
 	get isLoggedIn(): boolean {
-		const user = JSON.parse(localStorage.getItem('user') || '{}');
+		const user = this.userData;
 		return user !== null && user.emailVerified !== false ? true : false;
+	}
+
+	get userData(): User {
+		const user = JSON.parse(localStorage.getItem('user') ?? '{}');
+		return user;
 	}
 
 	async SignIn(email: string, password: string) {
