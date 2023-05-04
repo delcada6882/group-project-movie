@@ -89,7 +89,7 @@ export class RegisterPageComponent implements OnInit {
 			await this.AuthService.SignUp(
 				this.userFormGroup.value.email,
 				this.userFormGroup.value.password,
-				this.userFormGroup.value.username
+				{ displayName: this.userFormGroup.value.username }
 			);
 		} catch (err) {
 			console.log(err);

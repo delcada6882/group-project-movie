@@ -59,7 +59,11 @@ export class AuthService {
 		}
 	}
 
-	async SignUp(email: string, password: string) {
+	async SignUp(
+		email: string,
+		password: string,
+		changedProfileAttributes?: Partial<firebase.User>
+	) {
 		try {
 			const result =
 				await this.AngularFireAuth.createUserWithEmailAndPassword(
@@ -67,6 +71,8 @@ export class AuthService {
 					password
 				);
 			/* Call the SendVerificaitonMail() function when new user sign up and returns promise */
+			if (changedProfileAttributes)
+				await result.user?.updateProfile(changedProfileAttributes);
 			this.SendVerificationMail();
 			this.SetUserData(result.user);
 		} catch (err) {
