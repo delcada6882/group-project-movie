@@ -1,3 +1,157 @@
-<p>
-  register-page works!
-</p>
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>Register</ion-title>
+		<!-- this right here is only for ANDROID. -->
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">Register</ion-title>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
+	<ion-segment id="MainRegisterSegment">
+		<form
+			id="RegisterForm"
+			[formGroup]="userFormGroup"
+			(submit)="createUserProfile()"
+			(keyup.enter)="createUserProfile()"
+		>
+			<fieldset>
+				<legend>Sign Up With Email And Password</legend>
+				<ion-item>
+					<ion-input
+						type="text"
+						label="Username"
+						placeholder="Username"
+						labelPlacement="floating"
+						autocomplete="name"
+						required
+						name="username"
+						formControlName="username"
+					></ion-input>
+					<div
+						*ngIf="
+							username?.invalid &&
+							(username?.dirty || username?.touched)
+						"
+						class="alert alert-danger"
+					>
+						<div *ngIf="username?.errors?.['required']">
+							Name is required.
+						</div>
+						<div *ngIf="username?.errors?.['minlength']">
+							Must be at least 6 characters long.
+						</div>
+					</div>
+				</ion-item>
+				<ion-item>
+					<ion-input
+						type="email"
+						label="Email"
+						labelPlacement="floating"
+						autocomplete="email"
+						placeholder="Email"
+						required
+						name="email"
+						formControlName="email"
+					></ion-input>
+					<div
+						*ngIf="
+							email?.invalid && (email?.dirty || email?.touched)
+						"
+						class="alert alert-danger"
+					>
+						<div *ngIf="email?.errors?.['required']">
+							Name is required.
+						</div>
+						<div *ngIf="email?.errors?.['email']">
+							Please enter a valid email address.
+						</div>
+					</div>
+				</ion-item>
+				<ion-item>
+					<ion-input
+						type="password"
+						label="Password"
+						autocomplete="new-password"
+						labelPlacement="floating"
+						placeholder="Password"
+						required
+						name="password"
+						formControlName="password"
+					></ion-input>
+					<div
+						*ngIf="
+							password?.invalid &&
+							(password?.dirty || password?.touched)
+						"
+						class="alert alert-danger"
+					>
+						<div *ngIf="password?.errors?.['required']">
+							Password is required.
+						</div>
+						<div *ngIf="password?.errors?.['minlength']">
+							Must be at least 6 characters long.
+						</div>
+					</div>
+				</ion-item>
+				<ion-item>
+					<ion-input
+						type="password"
+						label="Confirm Password"
+						autocomplete="new-password"
+						labelPlacement="floating"
+						placeholder="Confirm Password"
+						required
+						name="password"
+						formControlName="confirmPassword"
+					></ion-input>
+					<div
+						*ngIf="
+							confirmPassword?.invalid &&
+							(confirmPassword?.dirty || confirmPassword?.touched)
+						"
+						class="alert alert-danger"
+					>
+						<div *ngIf="confirmPassword?.errors?.['required']">
+							Password is required.
+						</div>
+						<div *ngIf="confirmPassword?.errors?.['minlength']">
+							Must be at least 6 characters long.
+						</div>
+						<div *ngIf="confirmPassword?.errors?.['notSame']">
+							Passwords do not match.
+						</div>
+					</div>
+				</ion-item>
+				<ion-button
+					expand="block"
+					shape="round"
+					color="primary"
+					type="submit"
+					>Submit</ion-button
+				>
+			</fieldset>
+			<fieldset>
+				<legend>Or</legend>
+				<ion-button
+					type="button"
+					class="btn googleBtn"
+					(click)="signUpWithGoogle()"
+				>
+					<ion-icon slot="start" name="logo-google"></ion-icon>
+					Sign up with Google
+				</ion-button>
+			</fieldset>
+			<ion-label>
+				<a href="/register">Already have an account?</a>
+			</ion-label>
+		</form>
+	</ion-segment>
+</ion-content>

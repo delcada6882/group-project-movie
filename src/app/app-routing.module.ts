@@ -31,10 +31,10 @@ const routes: Routes = [
 		path: 'movies',
 		component: MoviePageComponent,
 	},
-	{
-		path: '**',
-		redirectTo: 'folder/Inbox',
-	},
+	// {
+	// 	path: '**',
+	// 	redirectTo: 'folder/Inbox',
+	// },
 ];
 
 @NgModule({
