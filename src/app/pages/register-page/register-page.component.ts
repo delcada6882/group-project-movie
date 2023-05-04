@@ -32,17 +32,46 @@ export class RegisterPageComponent implements OnInit {
 			},
 		]),
 	});
-	get username() {
-		return this.userFormGroup.get('username');
+	get usernameAlert() {
+		const username = this.userFormGroup.get('username');
+		if (!(username?.invalid && (username?.dirty || username?.touched)))
+			return null;
+		if (username?.hasError('required')) return 'Required';
+		if (username?.hasError('minlength'))
+			return 'Must be at least 6 characters';
+		return null;
 	}
-	get email() {
-		return this.userFormGroup.get('email');
+	get emailAlert() {
+		const email = this.userFormGroup.get('email');
+		if (!(email?.invalid && (email?.dirty || email?.touched))) return null;
+		if (email?.hasError('required')) return 'Required';
+		if (email?.hasError('email')) return 'Email is invalid';
+		return null;
 	}
-	get password() {
-		return this.userFormGroup.get('password');
+	get passwordAlert() {
+		const password = this.userFormGroup.get('password');
+		if (!(password?.invalid && (password?.dirty || password?.touched)))
+			return null;
+		if (password?.hasError('required')) return 'Required';
+		if (password?.hasError('minlength'))
+			return 'Must be at least 6 characters';
+		return null;
 	}
-	get confirmPassword() {
-		return this.userFormGroup.get('confirmPassword');
+	get confirmPasswordAlert() {
+		const confirmPassword = this.userFormGroup.get('confirmPassword');
+		if (
+			!(
+				confirmPassword?.invalid &&
+				(confirmPassword?.dirty || confirmPassword?.touched)
+			)
+		)
+			return null;
+		if (confirmPassword?.hasError('required')) return 'Required';
+		if (confirmPassword?.hasError('minlength'))
+			return 'Must be at least 6 characters';
+		if (confirmPassword?.hasError('notSame'))
+			return 'Passwords do not match';
+		return null;
 	}
 
 	constructor(public AuthService: AuthService) {}
@@ -50,14 +79,17 @@ export class RegisterPageComponent implements OnInit {
 	ngOnInit() {}
 
 	public async createUserProfile() {
+		this.userFormGroup.markAllAsTouched();
 		if (!this.userFormGroup.valid) return;
 		if (!this.userFormGroup.value.email) return;
 		if (!this.userFormGroup.value.password) return;
+		if (!this.userFormGroup.value.username) return;
 
 		try {
 			await this.AuthService.SignUp(
 				this.userFormGroup.value.email,
-				this.userFormGroup.value.password
+				this.userFormGroup.value.password,
+				this.userFormGroup.value.username
 			);
 		} catch (err) {
 			console.log(err);
