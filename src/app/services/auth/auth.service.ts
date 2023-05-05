@@ -10,6 +10,7 @@ import * as Auth from '@firebase/auth';
 import firebase from 'firebase/compat';
 
 function handleError(err: any) {
+	console.log('ERROR', err);
 	if (err instanceof Error)
 		console.error(
 			`Rut Ro!\nLooks like there was an error!\n${err.message}`
@@ -85,6 +86,40 @@ export class AuthService {
 		}
 	}
 
+	async startRecentSignIn() {
+		const user = await this.AngularFireAuth.currentUser;
+		if (!user) return;
+		await user.reauthenticateWithPopup(new Auth.GoogleAuthProvider());
+	}
+
+	async changeEmail(newEmail: string) {
+		const user = await this.AngularFireAuth.currentUser;
+		if (!user) return;
+		await user.updateEmail(newEmail).catch((err) => {
+			if (err.code === 'auth/requires-recent-login') {
+				this.startRecentSignIn();
+			} else if (err.code === 'auth/email-already-in-use') {
+				alert('Email already in use');
+			}
+		});
+		this.SetUserData(user);
+	}
+
+	async updateCurrentUser(changedProfileAttributes: Partial<User>) {
+		const { email, ...miscChangeAttr } = changedProfileAttributes;
+		try {
+			const user = await this.AngularFireAuth.currentUser;
+			if (!user) return;
+			if (miscChangeAttr) await user.updateProfile(miscChangeAttr);
+			if (email) {
+				await this.changeEmail(email);
+			}
+			this.SetUserData(user);
+		} catch (err) {
+			handleError(err);
+		}
+	}
+
 	SetUserData(user: firebase.User | null) {
 		if (!user) return;
 		const userRef: AngularFirestoreDocument<User> =
@@ -137,7 +172,7 @@ export class AuthService {
 	}
 
 	async AuthLogin(provider: Auth.AuthProvider) {
-		return this.AngularFireAuth.signInWithPopup(provider)
+		return await this.AngularFireAuth.signInWithPopup(provider)
 			.then((result) => {
 				if (!result.user)
 					throw new Error('No user returned from Google Auth');

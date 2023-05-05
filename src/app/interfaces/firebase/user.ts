@@ -4,6 +4,8 @@ export interface User {
 	// Customem Properties
 	bookmarks?: string;
 	adult?: boolean;
+	allowEmailNotifications?: boolean;
+	prefersDarkMode?: boolean;
 
 	// Firebase Properties
 	emailVerified?: boolean;

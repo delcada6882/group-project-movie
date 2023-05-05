@@ -13,13 +13,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: 'folder/inbox',
+		redirectTo: 'movies',
 		pathMatch: 'full',
-	},
-	{
-		path: 'folder/:id',
-		loadChildren: () =>
-			import('./folder/folder.module').then((m) => m.FolderPageModule),
 	},
 	{
 		path: 'profile',

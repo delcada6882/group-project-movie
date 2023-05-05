@@ -1,26 +1,51 @@
 :host {
 	#MainProfileSegment {
-		& > fieldset {
-			margin-top: 1em;
-			& > .img-thumbnail {
-				width: 125px;
-				height: 125px;
-				display: block;
-				object-fit: cover;
-				border-radius: 100%;
-				overflow: hidden;
-				&::before {
-					content: ' ';
+		display: flex;
+		margin: auto;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		max-width: 600px;
+		& > form {
+			width: 100%;
+			& > fieldset {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				margin-top: 1em;
+
+				& > ion-item {
+					width: 100%;
+					& > ion-input::ng-deep > label {
+						// TODO: Find a way to do this without use ::ng-deep
+						& > .label-text-wrapper {
+							margin-right: 8px;
+						}
+						& > .native-wrapper {
+							font-weight: bold;
+						}
+					}
+				}
+				& > .img-thumbnail {
+					width: 125px;
+					height: 125px;
 					display: block;
-					content: ' ';
-					display: block;
-					position: absolute;
 					object-fit: cover;
-					background-size: cover;
-					border-radius: inherit;
-					width: inherit;
-					height: inherit;
-					background-image: url('../../../assets/png/dummy-avatar.png');
+					border-radius: 100%;
+					overflow: hidden;
+					&::before {
+						content: ' ';
+						display: block;
+						position: absolute;
+						object-fit: cover;
+						background-size: cover;
+						border-radius: inherit;
+						width: inherit;
+						height: inherit;
+						background-image: url('../../../assets/png/dummy-avatar.png');
+					}
 				}
 			}
 		}
