@@ -1,27 +1,19 @@
-<ion-header [translucent]="true">
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-title>Movie Search</ion-title>
-		<!-- this right here is only for ANDROID. -->
-	</ion-toolbar>
-</ion-header>
+<app-page-header headerTitle="Movies" [menuIcon]="true"></app-page-header>
 
 <ion-content [fullscreen]="true">
-	<ion-header collapse="condense">
-		<ion-toolbar>
-			<ion-title size="large">Movie Search</ion-title>
-			<!-- This right here is only for IOS -->
-		</ion-toolbar>
-	</ion-header>
+	<app-page-header headerTitle="Movies" [contentChild]="true">
+	</app-page-header>
 	<div class="popularMoviesSection">
 		<h1>Popular Movies</h1>
-		<div class="popularMovies" #popShowMore>
-			<div *ngFor="let item of popularMovies" class="popularMovieCard">
-				<ion-img src="{{ urlStart + item.poster_path }}"></ion-img>
+		<a href="movies/popular">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="popularMovies"
+					class="flex noClick"
+					[anchorTag]="false"
+				></app-movie-poster>
 			</div>
-		</div>
+		</a>
 		<div class="showMoreSection">
 			<a href="movies/popular">
 				<ion-button color="secondary" class="showMoreButton"

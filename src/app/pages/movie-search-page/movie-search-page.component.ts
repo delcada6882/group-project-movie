@@ -16,13 +16,8 @@ export class MovieSearchPageComponent implements OnInit {
 
   public showLoading = false;
 
-  constructor(private ApiCallService: ApiCallService) {}
+  constructor(private ApiCallService: ApiCallService) { }
 
-  showData() {
-    this.ApiCallService.getData().subscribe((data: Movie) => {
-      console.log(data);
-    });
-  }
   showDataList(searchString: String) {
     this.showLoading = true;
     this.ApiCallService.getDataBySearch(searchString).subscribe((data: any) => {
@@ -32,5 +27,5 @@ export class MovieSearchPageComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

@@ -1,15 +1,15 @@
 <app-page-header
-	headerTitle="Popular Movies"
+	headerTitle="{{ folder }} Movies"
 	[menuIcon]="true"
 ></app-page-header>
 
 <ion-content [fullscreen]="true">
-	<app-page-header headerTitle="Popular Movies" [contentChild]="true">
+	<app-page-header headerTitle="{{ folder }} Movies" [contentChild]="true">
 	</app-page-header>
 
 	<div class="popularMoviesSection">
 		<app-movie-poster
-			[movieList]="popularMovies"
+			[movieList]="movieList"
 			class="flex outline"
 			[anchorTag]="true"
 		></app-movie-poster>

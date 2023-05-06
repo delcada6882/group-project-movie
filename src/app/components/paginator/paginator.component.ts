@@ -46,21 +46,19 @@ export class PaginatorComponent implements OnInit {
       this.paginatorSelect(this.setPageNum + 1)
 
       this.scrollElement?.scrollTo(
-        // Number(item) * (this.scrollElement.scrollWidth / this.totalPageNum?.length)
         (Number(this.setPageNum) - 1) * 35
         , 0)
     }
   }
   paginatorSelect(item: Number) {
     if (this.totalPageNum === undefined) return
-    this.setPageNum = Number(item);
-    document.querySelectorAll('.paginatorNum').forEach((idx) => { idx.classList.remove('paginatorSelectClass') });
-    document.getElementsByClassName('paginatorNum')[Number(item) - 1].classList.add('paginatorSelectClass');
-    // item.addEventListener('animationend', () => {
-    //   item.classList.remove('paginatorSelectClass');
-    // })
-    this.sendToParent(item);
-    this.scrollElement = document.getElementById('paginatorScroll') || undefined;
+    if (this.setPageNum !== item) {
+      this.setPageNum = Number(item);
+      document.querySelectorAll('.paginatorNum').forEach((idx) => { idx.classList.remove('paginatorSelectClass') });
+      document.getElementsByClassName('paginatorNum')[Number(item) - 1].classList.add('paginatorSelectClass');
+      this.sendToParent(item);
+      this.scrollElement = document.getElementById('paginatorScroll') || undefined;
+    }
   }
 
   nonSpecMoviesArr = [];

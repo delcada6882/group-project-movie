@@ -9,48 +9,59 @@ import { AuthGuard } from './guards/auth/auth.guard';
 import { ForgotPasswordComponent } from './components/modals/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { ForgotPasswordComponent } from './components/modals/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 const routes: Routes = [
-	{
-		path: '',
-		redirectTo: 'movies',
-		pathMatch: 'full',
-	},
-	{
-		path: 'profile',
-		component: ProfilePageComponent,
-		canActivate: [AuthGuard],
-	},
-	{
-		path: 'TODO:RM-this-path',
-		component: ProfilePageComponent,
-	},
-	{
-		path: 'login',
-		component: LoginPageComponent,
-	},
-	{
-		path: 'register',
-		component: RegisterPageComponent,
-	},
-	{
-		path: 'movies',
-		component: MoviePageComponent,
-	},
-	{
-		path: 'movieSearch',
-		component: MovieSearchPageComponent,
-	},
-	{
-		path: 'movies/popular',
-		component: PopularPageComponent,
-	},
-	{ path: 'forgot-password', component: ForgotPasswordComponent },
-	{ path: 'verify-email-address', component: VerifyEmailComponent },
-	// {
-	// 	path: '**',
-	// 	redirectTo: 'folder/Inbox',
-	// },
+    {
+        path: '',
+        redirectTo: 'movies',
+        pathMatch: 'full'
+    },
+    {
+        path: 'movies/genre/:genreId',
+        component: GenrePageComponent
+    },
+    {
+        path: 'movies/films/:movieId',
+        component: MovieEndpointComponent
+    },
+    {
+        path: 'profile',
+        component: LoginPageComponent,
+    },
+    {
+		    path: 'TODO:RM-this-path',
+		    component: ProfilePageComponent,
+	  },
+    {
+        path: 'login',
+        component: LoginPageComponent,
+    },
+    {
+        path: 'register',
+        component: RegisterPageComponent,
+    },
+    {
+        path: 'movies',
+        component: MoviePageComponent
+    },
+    {
+        path: "movieSearch",
+        component: MovieSearchPageComponent
+    },
+    {
+        path: 'movies/popular',
+        component: PopularPageComponent
+    },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'verify-email-address', component: VerifyEmailComponent },
+    // {
+    // 	path: '**',
+    // 	redirectTo: 'folder/Inbox',
+    // },
 ];
 
 @NgModule({

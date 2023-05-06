@@ -24,31 +24,38 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MovieSearchPageComponent } from './pages/movie-search-page/movie-search-page.component';
 import { PopularPageComponent } from './pages/popular-page/popular-page.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { MoviePosterComponent } from './components/movie-poster/movie-poster.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { GenrePageComponent } from './pages/genre-page/genre-page.component';
+import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		MoviePageComponent,
-		LoginPageComponent,
-		RegisterPageComponent,
-		MovieSearchPageComponent,
-		PopularPageComponent,
-		PaginatorComponent,
-		ProfilePageComponent,
-
+  declarations: [
+    AppComponent,
+    MoviePageComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    MovieSearchPageComponent,
+    PopularPageComponent,
+    PaginatorComponent,
+    MoviePosterComponent,
+    PageHeaderComponent,
+    GenrePageComponent,
+    MovieEndpointComponent,
+    ProfilePageComponent,
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
-	],
-	imports: [
-		BrowserModule,
-		IonicModule.forRoot(),
-		AppRoutingModule,
-		HttpClientModule,
-		FormsModule,
-		ReactiveFormsModule,
-
+    
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAuthModule,
 		AngularFirestoreModule,

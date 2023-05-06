@@ -16,13 +16,7 @@ export class MoviePageComponent implements OnInit {
   componentPop = PopularPageComponent;
 
   popularMovies: any = [];
-  urlStart = 'https://image.tmdb.org/t/p/w500';
   buttonText = 'Show More';
-
-  // showMorePopularMovies(item: Element) {
-  //   // item.classList.toggle('popularMoviesShowMore');
-  //   //TODO: Add a better looking transition so that the movies don't just appear
-  // }
 
   showPopularMovies(pageNum: number) {
     this.ApiCallService.getPopularMovies(pageNum).subscribe((data: any) => {

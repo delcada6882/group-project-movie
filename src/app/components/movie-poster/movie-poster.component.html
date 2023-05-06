@@ -1,0 +1,25 @@
+<div
+	*ngFor="let item of movieList"
+	class="popularMovieCard"
+	#movieCard
+	(click)="clickAnim(movieCard)"
+>
+	<a href="movies/films/{{ item.id }}" *ngIf="anchorTag">
+		<ion-img
+			*ngIf="item.poster_path !== null"
+			src="{{ urlStart + item.poster_path }}"
+		></ion-img>
+		<p *ngIf="item.poster_path === null" class="noImage">
+			{{ item.title }}
+		</p>
+	</a>
+	<div *ngIf="!anchorTag">
+		<ion-img
+			*ngIf="item.poster_path !== null"
+			src="{{ urlStart + item.poster_path }}"
+		></ion-img>
+		<p *ngIf="item.poster_path === null" class="noImage">
+			{{ item.title }}
+		</p>
+	</div>
+</div>

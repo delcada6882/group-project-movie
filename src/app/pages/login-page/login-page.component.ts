@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
 		private UserService: UserService,
 		private modalController: ModalController,
 		public AuthService: AuthService
-	) {}
+	) { }
 
 	async ngOnInit() {
 		this.UserService.getUserObservable()?.subscribe((data) => {
