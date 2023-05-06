@@ -32,30 +32,30 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MoviePageComponent,
-    LoginPageComponent,
-    RegisterPageComponent,
-    MovieSearchPageComponent,
-    PopularPageComponent,
-    PaginatorComponent,
-    MoviePosterComponent,
-    PageHeaderComponent,
-    GenrePageComponent,
-    MovieEndpointComponent,
-    ProfilePageComponent,
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
+	declarations: [
+		AppComponent,
+		MoviePageComponent,
+		LoginPageComponent,
+		RegisterPageComponent,
+		MovieSearchPageComponent,
+		PopularPageComponent,
+		PaginatorComponent,
+		MoviePosterComponent,
+		PageHeaderComponent,
+		GenrePageComponent,
+		MovieEndpointComponent,
+		ProfilePageComponent,
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
-    
+	],
+	imports: [
+		BrowserModule,
+		IonicModule.forRoot(),
+		AppRoutingModule,
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
+
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAuthModule,
 		AngularFirestoreModule,
