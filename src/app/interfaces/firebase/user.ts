@@ -2,8 +2,10 @@ import * as Auth from '@angular/fire/auth';
 
 export interface User {
 	// Customem Properties
-	bookmarks?: string;
-	adult?: boolean;
+	bookmarks?: string | null;
+	adult?: boolean | null;
+	allowEmailNotifications?: boolean | null;
+	prefersDarkMode?: boolean | null;
 
 	// Firebase Properties
 	emailVerified?: boolean;

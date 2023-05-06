@@ -10,6 +10,7 @@ import * as Auth from '@firebase/auth';
 import firebase from 'firebase/compat';
 
 function handleError(err: any) {
+	console.log('ERROR', err);
 	if (err instanceof Error)
 		console.error(
 			`Rut Ro!\nLooks like there was an error!\n${err.message}`
@@ -17,7 +18,7 @@ function handleError(err: any) {
 	else console.error(`Something went HORRIBLY wrong!\n${err}`);
 }
 
-const SUCCESS_REDIRECT = '/movies';
+const SUCCESS_REDIRECT = '/profile';
 
 @Injectable({
 	providedIn: 'root',
@@ -36,8 +37,15 @@ export class AuthService {
 	}
 
 	get isLoggedIn(): boolean {
-		const user = JSON.parse(localStorage.getItem('user') || '{}');
-		return user !== null && user.emailVerified !== false ? true : false;
+		const user = this.userData;
+		return user !== null;
+	}
+
+	get userData(): User | null {
+		const localStorageItem = localStorage.getItem('user');
+		if (!localStorageItem) return null;
+		const user = JSON.parse(localStorageItem);
+		return user;
 	}
 
 	async SignIn(email: string, password: string) {
@@ -59,7 +67,11 @@ export class AuthService {
 		}
 	}
 
-	async SignUp(email: string, password: string) {
+	async SignUp(
+		email: string,
+		password: string,
+		changedProfileAttributes?: Partial<firebase.User>
+	) {
 		try {
 			const result =
 				await this.AngularFireAuth.createUserWithEmailAndPassword(
@@ -67,6 +79,8 @@ export class AuthService {
 					password
 				);
 			/* Call the SendVerificaitonMail() function when new user sign up and returns promise */
+			if (changedProfileAttributes)
+				await result.user?.updateProfile(changedProfileAttributes);
 			this.SendVerificationMail();
 			this.SetUserData(result.user);
 		} catch (err) {
@@ -74,11 +88,46 @@ export class AuthService {
 		}
 	}
 
-	SetUserData(user: firebase.User | null) {
+	async startRecentSignIn() {
+		const user = await this.AngularFireAuth.currentUser;
 		if (!user) return;
+		await user.reauthenticateWithPopup(new Auth.GoogleAuthProvider());
+	}
+
+	async changeEmail(newEmail: string) {
+		const user = await this.AngularFireAuth.currentUser;
+		if (!user) return;
+		await user.updateEmail(newEmail).catch((err) => {
+			if (err.code === 'auth/requires-recent-login') {
+				this.startRecentSignIn();
+			} else if (err.code === 'auth/email-already-in-use') {
+				alert('Email already in use');
+			}
+		});
+		this.SetUserData(user);
+	}
+
+	async updateCurrentUser(changedProfileAttributes: Partial<User>) {
+		const { email, ...miscChangeAttr } = changedProfileAttributes;
+		try {
+			const user = await this.AngularFireAuth.currentUser;
+			if (!user) return;
+			if (miscChangeAttr) await user.updateProfile(miscChangeAttr);
+			if (email) {
+				await this.changeEmail(email);
+			}
+			this.SetUserData(user);
+		} catch (err) {
+			handleError(err);
+		}
+	}
+
+	async SetUserData(user: firebase.User | null) {
+		if (!user) return;
+		localStorage.setItem('user', JSON.stringify(user));
 		const userRef: AngularFirestoreDocument<User> =
 			this.AngularFirestore.doc<User>(`users/${user.uid}`);
-		return userRef.set(
+		return await userRef.set(
 			{
 				displayName: user.displayName,
 				email: user.email,
@@ -111,7 +160,7 @@ export class AuthService {
 	}
 
 	async SignOut() {
-		return this.AngularFireAuth.signOut().then(() => {
+		return await this.AngularFireAuth.signOut().then(() => {
 			localStorage.removeItem('user');
 			this.Router.navigate([SUCCESS_REDIRECT]);
 		});
@@ -126,7 +175,7 @@ export class AuthService {
 	}
 
 	async AuthLogin(provider: Auth.AuthProvider) {
-		return this.AngularFireAuth.signInWithPopup(provider)
+		return await this.AngularFireAuth.signInWithPopup(provider)
 			.then((result) => {
 				if (!result.user)
 					throw new Error('No user returned from Google Auth');

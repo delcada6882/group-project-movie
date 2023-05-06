@@ -5,19 +5,20 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { MovieSearchPageComponent } from './pages/movie-search-page/movie-search-page.component';
 import { PopularPageComponent } from './pages/popular-page/popular-page.component';
-import { GenrePageComponent } from './pages/genre-page/genre-page.component';
-import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.component';
-
+import { AuthGuard } from './guards/auth/auth.guard';
+import { ForgotPasswordComponent } from './components/modals/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { ForgotPasswordComponent } from './components/modals/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 const routes: Routes = [
     {
         path: '',
         redirectTo: 'movies',
         pathMatch: 'full'
-    },
-    {
-        path: 'folder/:id',
-        loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
     },
     {
         path: 'movies/genre/:genreId',
@@ -31,6 +32,10 @@ const routes: Routes = [
         path: 'profile',
         component: LoginPageComponent,
     },
+    {
+		    path: 'TODO:RM-this-path',
+		    component: ProfilePageComponent,
+	  },
     {
         path: 'login',
         component: LoginPageComponent,
@@ -47,20 +52,22 @@ const routes: Routes = [
         path: "movieSearch",
         component: MovieSearchPageComponent
     },
-    // {
-    // 	path: '**',
-    // 	redirectTo: 'folder/Inbox',
-    // },
     {
         path: 'movies/popular',
         component: PopularPageComponent
     },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'verify-email-address', component: VerifyEmailComponent },
+    // {
+    // 	path: '**',
+    // 	redirectTo: 'folder/Inbox',
+    // },
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
-    ],
-    exports: [RouterModule],
+	imports: [
+		RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+	],
+	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

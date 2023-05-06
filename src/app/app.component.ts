@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from './services/api-call.service';
 import { Movie } from './interfaces/api/movie';
+import { AuthService } from './services/auth/auth.service';
 @Component({
-    selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.scss'],
+	selector: 'app-root',
+	templateUrl: 'app.component.html',
+	styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
     public appPages = [
@@ -30,16 +31,19 @@ export class AppComponent implements OnInit {
         { title: 'Drama', url: 'movies/genre/Drama', src: '/icon/drama-masks.svg' },
     ];
 
-    public bookmarks = [
-        'Harry Potter',
-        'Lord of the Rings',
-        'Avengers',
-        'Pirates of the Caribbean',
-        'Jurassic Park',
-        'Back to the Future',
-    ];
+	public bookmarks = [
+		'Harry Potter',
+		'Lord of the Rings',
+		'Avengers',
+		'Pirates of the Caribbean',
+		'Jurassic Park',
+		'Back to the Future',
+	];
 
-    constructor(private ApiCallService: ApiCallService) { }
+	constructor(
+		private ApiCallService: ApiCallService,
+		public authService: AuthService
+	) {}
 
     ngOnInit() {
     }

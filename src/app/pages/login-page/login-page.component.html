@@ -23,6 +23,9 @@
 						name="email"
 						formControlName="email"
 					></ion-input>
+					<div class="alert alert-danger">
+						{{ getAlertMsg('email') }}
+					</div>
 				</ion-item>
 				<ion-item>
 					<ion-input
@@ -35,6 +38,9 @@
 						name="password"
 						formControlName="password"
 					></ion-input>
+					<div class="alert alert-danger">
+						{{ getAlertMsg('password') }}
+					</div>
 				</ion-item>
 				<ion-button
 					expand="block"
@@ -43,7 +49,9 @@
 					type="submit"
 					>Submit</ion-button
 				>
-				<a target="_blank" href="/forgot-password">Forgot Password?</a>
+				<ion-button (click)="openForgotPassowordModal()" expand="full">
+					Forgot Password?
+				</ion-button>
 			</fieldset>
 			<fieldset>
 				<legend>Or</legend>
@@ -61,5 +69,5 @@
 				<a href="/register">Make One!</a>
 			</ion-label>
 		</form>
-	</ion-segment>
+	</div>
 </ion-content>

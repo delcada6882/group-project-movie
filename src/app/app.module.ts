@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './components/modals/forgot-password/forgot-password.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -27,6 +28,8 @@ import { MoviePosterComponent } from './components/movie-poster/movie-poster.com
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { GenrePageComponent } from './pages/genre-page/genre-page.component';
 import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.co
     MoviePosterComponent,
     PageHeaderComponent,
     GenrePageComponent,
-    MovieEndpointComponent
+    MovieEndpointComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,17 +53,19 @@ import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.co
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireDatabaseModule,
-  ],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AuthService,
-  ],
-  bootstrap: [AppComponent],
+		ForgotPasswordComponent,
+		VerifyEmailComponent,
+    
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireAuthModule,
+		AngularFirestoreModule,
+		AngularFireStorageModule,
+		AngularFireDatabaseModule,
+	],
+	providers: [
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		AuthService,
+	],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

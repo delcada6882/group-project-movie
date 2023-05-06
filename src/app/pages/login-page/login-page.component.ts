@@ -1,8 +1,10 @@
 import { AuthService } from './../../services/auth/auth.service';
-import { User } from './../../interfaces/firebase/user';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ForgotPasswordComponent } from 'src/app/components/modals/forgot-password/forgot-password.component';
+import { userValidators } from 'src/app/formControl/form-validators';
 
 @Component({
 	selector: 'app-login-page',
@@ -11,14 +13,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 	public userFormGroup = new FormGroup({
-		email: new FormControl(''),
-		password: new FormControl(''),
+		email: new FormControl('', userValidators.email),
+		password: new FormControl('', userValidators.password),
 	});
 	public email?: string;
 	public password?: string;
 
 	constructor(
 		private UserService: UserService,
+		private modalController: ModalController,
 		public AuthService: AuthService
 	) { }
 
@@ -26,6 +29,12 @@ export class LoginPageComponent implements OnInit {
 		this.UserService.getUserObservable()?.subscribe((data) => {
 			console.log(data);
 		});
+	}
+
+	public getAlertMsg(path: string) {
+		const abstractControl = this.userFormGroup.get(path);
+		if (!abstractControl) return;
+		return userValidators.alerts(abstractControl);
 	}
 
 	public async updateUserProfile() {
@@ -43,7 +52,15 @@ export class LoginPageComponent implements OnInit {
 		}
 	}
 
-	public signInWithGoogle() {
-		this.AuthService.GoogleAuth();
+	public async signInWithGoogle() {
+		await this.AuthService.GoogleAuth();
+	}
+
+	public async openForgotPassowordModal() {
+		const modal = await this.modalController.create({
+			component: ForgotPasswordComponent,
+			cssClass: 'forgot-password-modal',
+		});
+		return await modal.present();
 	}
 }
