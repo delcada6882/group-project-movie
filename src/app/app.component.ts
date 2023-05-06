@@ -1,30 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from './services/api-call.service';
 import { Movie } from './interfaces/api/movie';
+import { AuthService } from './services/auth/auth.service';
 @Component({
-    selector: 'app-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.scss'],
+	selector: 'app-root',
+	templateUrl: 'app.component.html',
+	styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-    public appPages = [
-        { title: 'Movie', url: '/movies', icon: 'mail' },
-        { title: 'Movie Search', url: '/movieSearch', icon: 'paper-plane' },
-        { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-        { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-        { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-        { title: 'Spam', url: '/folder/spam', icon: 'warning' },
-    ];
-    public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-    constructor(private ApiCallService: ApiCallService) { }
+	public appPages = [
+		{ title: 'Profile', url: '/profile', icon: 'person' },
+		{ title: 'Movies', url: '/movies', icon: 'film' },
+		{ title: 'Spam', url: '/spam', icon: 'warning' },
+	];
+	public categories = [
+		{ title: 'Popular', url: '/popular', icon: 'sparkles' },
+		{ title: 'Family', url: '/genre/Family', icon: 'people' },
+		{ title: 'Action', url: '/genre/Action', src: '/icon/gun.svg' },
+		{
+			title: 'Comedy',
+			url: '/genre/Comedy',
+			src: '/icon/laugh.svg',
+		},
+		{ title: 'Horror', url: '/genre/Horror', icon: 'skull' },
+		{
+			title: 'Fantasy',
+			url: '/genre/Fantasy',
+			src: '/icon/dragon-head.svg',
+		},
+		{ title: 'Drama', url: '/genre/Drama', src: '/icon/drama-masks.svg' },
+	];
 
-    showData() {
-        this.ApiCallService.getData().subscribe((data: Movie) => {
-            console.log(data);
-        });
-    }
+	public bookmarks = [
+		'Harry Potter',
+		'Lord of the Rings',
+		'Avengers',
+		'Pirates of the Caribbean',
+		'Jurassic Park',
+		'Back to the Future',
+	];
 
-    ngOnInit() {
-        this.showData();
-    }
+	constructor(
+		private ApiCallService: ApiCallService,
+		public authService: AuthService
+	) {}
+
+	showData() {
+		this.ApiCallService.getData().subscribe((data: Movie) => {
+			console.log(data);
+		});
+	}
+
+	ngOnInit() {
+		this.showData();
+	}
 }

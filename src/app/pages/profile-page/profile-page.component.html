@@ -1,0 +1,181 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>Profile</ion-title>
+		<!-- this right here is only for ANDROID. -->
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">Profile</ion-title>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
+
+	<ion-card
+		id="NotLoggedInSegment"
+		*ngIf="!authService.isLoggedIn"
+		title="Go to Login Page"
+	>
+		<ion-card-header>
+			<h1>
+				You're Not logged in!
+				<ion-icon name="lock-closed-outline"></ion-icon>
+			</h1>
+		</ion-card-header>
+		<ion-card-content>
+			<a href="/login">
+				<ion-button>
+					<ion-icon slot="start" name="log-in-outline"></ion-icon>
+					Login
+				</ion-button>
+			</a>
+			<a href="/register">
+				<ion-button>
+					<ion-icon slot="start" name="person-add-outline"></ion-icon>
+					Register
+				</ion-button>
+			</a>
+		</ion-card-content>
+	</ion-card>
+
+	<div
+		id="MainProfileSegment"
+		*ngIf="authService.userData as user"
+		class="UserID:{{ user.uid }}"
+	>
+		<form
+			id="UserProfileDataForm"
+			[formGroup]="userProfileDataGroup"
+			(submit)="updateUserProfile()"
+			(keyup.enter)="updateUserProfile()"
+		>
+			<fieldset>
+				<legend>Profile</legend>
+				<ion-item>
+					<ion-avatar slot="start">
+						<img
+							class="img-thumbnail"
+							src="{{
+								user.photoURL ?? '/assets/png/dummy-avatar.png'
+							}}"
+							alt="{{ user.displayName }}"
+						/>
+					</ion-avatar>
+					<h1>
+						Welcome:
+						<strong>{{ user.displayName ?? 'User' }}</strong>
+					</h1>
+					<ion-button
+						(click)="authService.SignOut()"
+						slot="end"
+						expand="block"
+						shape="round"
+						color="danger"
+					>
+						Sign Out
+					</ion-button>
+				</ion-item>
+
+				<ion-item>
+					<ion-input
+						type="text"
+						placeholder="Display Name"
+						autocomplete="name"
+						labelPlacement="left"
+						label="Display Name: "
+						formControlName="displayName"
+					/>
+					<div class="alert alert-danger">
+						{{ getAlertMsg('displayName') }}
+					</div>
+					<ion-icon name="create-outline" />
+				</ion-item>
+				<ion-item>
+					<ion-input
+						class="te"
+						type="text"
+						placeholder="Email"
+						labelPlacement="left"
+						name="email"
+						label="Email: "
+						formControlName="email"
+					/>
+					<div class="alert alert-danger">
+						{{ getAlertMsg('email') }}
+					</div>
+					<ion-icon name="create-outline" />
+				</ion-item>
+				<ion-item>
+					<ion-input
+						readonly
+						label="Email Verified:"
+						placeholder="Email Verified"
+						labelPlacement="left"
+						formControlName="emailVerified"
+					/>
+				</ion-item>
+				<ion-item>
+					<ion-button
+						(click)="updateUserProfile()"
+						[disabled]="
+							!userProfileDataGroup.dirty ||
+							!userProfileDataGroup.valid
+						"
+					>
+						Save
+					</ion-button>
+					<ion-button
+						(click)="resetUserProfileDataGroup()"
+						[disabled]="!userProfileDataGroup.dirty"
+					>
+						Cancel
+					</ion-button>
+				</ion-item>
+			</fieldset>
+		</form>
+		<form
+			id="UserProfileSettingsForm"
+			[formGroup]="userProfileSettingsGroup"
+		>
+			<fieldset>
+				<legend>Settings</legend>
+				<ion-item>
+					<ion-icon
+						name="mail-outline"
+						style="margin-right: 8px"
+					></ion-icon>
+					<ion-toggle
+						labelPlacement="start"
+						formControlName="allowEmailNotifications"
+						>Allow Email Notifications</ion-toggle
+					>
+				</ion-item>
+				<ion-item>
+					<ion-icon
+						name="warning-outline"
+						style="margin-right: 8px"
+					></ion-icon>
+					<ion-toggle labelPlacement="start" formControlName="adult"
+						>Show Adult Movies</ion-toggle
+					>
+				</ion-item>
+				<ion-item>
+					<ion-icon
+						name="contrast-outline"
+						style="margin-right: 8px"
+					></ion-icon>
+					<ion-toggle
+						labelPlacement="start"
+						formControlName="prefersDarkMode"
+						>Dark Mode</ion-toggle
+					>
+				</ion-item>
+			</fieldset>
+		</form>
+	</div>
+</ion-content>

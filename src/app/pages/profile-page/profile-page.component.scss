@@ -1,0 +1,57 @@
+:host {
+	#NotLoggedInSegment {
+		margin-top: 16px;
+		text-align: center;
+	}
+
+	#MainProfileSegment {
+		display: flex;
+		margin: auto;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		max-width: 600px;
+		& > form {
+			width: 100%;
+			& > fieldset {
+				display: flex;
+				border-radius: 4px;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin-top: 1em;
+
+				& > ion-item {
+					width: 100%;
+					& > ion-input::ng-deep > label {
+						// TODO: Find a way to do this without use ::ng-deep
+						& > .label-text-wrapper {
+							margin-right: 8px;
+						}
+						& > .native-wrapper {
+							font-weight: bold;
+						}
+					}
+					& > .img-thumbnail {
+						display: block;
+						& > img {
+							display: block;
+							position: relative;
+							&::before {
+								content: ' ';
+								display: block;
+								position: absolute;
+								object-fit: cover;
+								background-size: cover;
+								border-radius: inherit;
+								width: 100%;
+								height: 100%;
+								background-image: url('../../../assets/png/dummy-avatar.png');
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -3,43 +3,68 @@
 		<ion-menu contentId="main-content" type="overlay">
 			<ion-content>
 				<ion-list id="inbox-list">
-					<ion-list-header>USERNAME</ion-list-header>
-					<ion-note>EMAIL</ion-note>
-
-					<ion-menu-toggle
-						auto-hide="false"
-						*ngFor="let p of appPages; let i = index"
+					<ion-list-header
+						*ngIf="authService.userData?.displayName"
+						>{{
+							authService.userData?.displayName
+						}}</ion-list-header
 					>
+					<ion-note *ngIf="authService.userData?.email">{{
+						authService.userData?.email
+					}}</ion-note>
+
+					<ion-menu-toggle auto-hide="false">
 						<ion-item
 							routerDirection="root"
 							[routerLink]="[p.url]"
 							lines="none"
 							detail="false"
 							routerLinkActive="selected"
+							*ngFor="let p of appPages; let i = index"
 						>
 							<ion-icon
 								aria-hidden="true"
 								slot="start"
-								[ios]="p.icon + '-outline'"
-								[md]="p.icon + '-sharp'"
+								[name]="p.icon + '-outline'"
 							></ion-icon>
 							<ion-label>{{ p.title }}</ion-label>
 						</ion-item>
 					</ion-menu-toggle>
 				</ion-list>
 
-				<ion-list id="labels-list">
-					<ion-list-header>Labels</ion-list-header>
+				<ion-list id="categories-list">
+					<ion-menu-toggle auto-hide="false">
+						<ion-item
+							routerDirection="root"
+							*ngFor="let category of categories"
+							[routerLink]="[category.url]"
+							lines="none"
+						>
+							<ion-icon
+								aria-hidden="true"
+								slot="start"
+								[src]="
+									!!category.src && '/assets/' + category.src
+								"
+								[name]="!!category.icon && category.icon"
+							></ion-icon>
+							<ion-label>{{ category.title }}</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
 
-					<ion-item *ngFor="let label of labels" lines="none">
-						<ion-icon
-							aria-hidden="true"
-							slot="start"
-							ios="bookmark-outline"
-							md="bookmark-sharp"
-						></ion-icon>
-						<ion-label>{{ label }}</ion-label>
-					</ion-item>
+				<ion-list id="history-list">
+					<ion-note>Recently Viewed</ion-note>
+					<ion-menu-toggle auto-hide="false">
+						<ion-item
+							routerDirection="root"
+							*ngFor="let category of categories"
+							[routerLink]="[category.url]"
+							lines="none"
+						>
+							<ion-label>{{ category.title }}</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
 				</ion-list>
 			</ion-content>
 		</ion-menu>

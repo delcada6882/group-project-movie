@@ -1,0 +1,52 @@
+@keyframes clickAnimMD {
+    0% {
+        transform: translateY(0);
+        border-color: var(--ion-border-color)
+    }
+    50% {
+        transform: translateY(-5px);
+        border-color: var(--ion-color-step-200)
+        
+    }
+    100% {
+        transform: translateY(0);
+        border-color: var(--ion-border-color)
+    }
+}
+@keyframes clickAnimIOS {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.md .popularMovieCard {
+    overflow: hidden;
+    width: 40%;
+    border-radius: 5px;
+    margin: 2% 0;
+    border: 3px solid var(--ion-border-color)
+}
+.ios .popularMovieCard {
+    overflow: hidden;
+    width: 40%;
+    border-radius: 5px;
+    margin: 2% 0;
+}
+.popularMoviesSection {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.md .clickAnimClass {
+    animation: clickAnimMD 0.25s;
+}
+.ios .clickAnimClass {
+    animation: clickAnimIOS 0.25s;
+
+}

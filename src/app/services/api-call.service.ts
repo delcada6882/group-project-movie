@@ -56,7 +56,7 @@ export class ApiCallService {
         );
     }
 
-    getPopularMovies() {
-        return this.http.get<MovieList>(this.popularUrl);
+    getPopularMovies(pageNum: number) {
+        return this.http.get<MovieList>(this.popularUrl + `&page=${String(pageNum)}`);
     }
 }
