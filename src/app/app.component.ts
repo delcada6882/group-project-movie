@@ -13,21 +13,21 @@ export class AppComponent implements OnInit {
         { title: 'Spam', url: '/spam', icon: 'warning' },
     ];
     public categories = [
-        { title: 'Popular', url: '/popular', icon: 'sparkles' },
-        { title: 'Family', url: '/genre/Family', icon: 'people' },
-        { title: 'Action', url: '/genre/Action', src: '/icon/gun.svg' },
+        { title: 'Popular', url: 'movies/popular', icon: 'sparkles' },
+        { title: 'Family', url: 'movies/genre/Family', icon: 'people' },
+        { title: 'Action', url: 'movies/genre/Action', src: '/icon/gun.svg' },
         {
             title: 'Comedy',
-            url: '/genre/Comedy',
+            url: 'movies/genre/Comedy',
             src: '/icon/laugh.svg',
         },
-        { title: 'Horror', url: '/genre/Horror', icon: 'skull' },
+        { title: 'Horror', url: 'movies/genre/Horror', icon: 'skull' },
         {
             title: 'Fantasy',
-            url: '/genre/Fantasy',
+            url: 'movies/genre/Fantasy',
             src: '/icon/dragon-head.svg',
         },
-        { title: 'Drama', url: '/genre/Drama', src: '/icon/drama-masks.svg' },
+        { title: 'Drama', url: 'movies/genre/Drama', src: '/icon/drama-masks.svg' },
     ];
 
     public bookmarks = [
@@ -41,13 +41,13 @@ export class AppComponent implements OnInit {
 
     constructor(private ApiCallService: ApiCallService) { }
 
-    showData() {
-        this.ApiCallService.getData().subscribe((data: Movie) => {
-            console.log(data);
-        });
-    }
+    // showData() {
+    //     this.ApiCallService.getMovieById().subscribe((data: Movie) => {
+    //         console.log(data);
+    //     });
+    // }
 
     ngOnInit() {
-        this.showData();
+        // this.showData();
     }
 }

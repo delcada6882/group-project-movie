@@ -48,7 +48,6 @@ export class PopularPageComponent implements AfterViewInit {
   }
 
   childToParent(name: any) {
-    console.log(name)
     this.showPopularMovies(name)
   }
 

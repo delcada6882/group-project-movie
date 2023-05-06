@@ -75,6 +75,10 @@
 	--ion-color-light-shade: #d7d8da;
 	--ion-color-light-tint: #f5f6f9;
 }
+:root:has(.ios) {
+	--ion-background-color: #f2f2f2;
+	--ion-color-step-150: var(--ion-color-dark-contrast);
+}
 
 @media (prefers-color-scheme: dark) {
 	/*

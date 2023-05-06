@@ -16,7 +16,6 @@ export class MoviePageComponent implements OnInit {
   componentPop = PopularPageComponent;
 
   popularMovies: any = [];
-  urlStart = 'https://image.tmdb.org/t/p/w500';
   buttonText = 'Show More';
 
   // showMorePopularMovies(item: Element) {

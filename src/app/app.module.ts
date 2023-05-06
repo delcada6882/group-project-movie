@@ -23,6 +23,10 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MovieSearchPageComponent } from './pages/movie-search-page/movie-search-page.component';
 import { PopularPageComponent } from './pages/popular-page/popular-page.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { MoviePosterComponent } from './components/movie-poster/movie-poster.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { GenrePageComponent } from './pages/genre-page/genre-page.component';
+import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     RegisterPageComponent,
     MovieSearchPageComponent,
     PopularPageComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    MoviePosterComponent,
+    PageHeaderComponent,
+    GenrePageComponent,
+    MovieEndpointComponent
   ],
   imports: [
     BrowserModule,

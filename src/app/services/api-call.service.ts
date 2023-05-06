@@ -22,9 +22,8 @@ export class ApiCallService {
 
     constructor(private http: HttpClient) { }
 
-
-    getData() {
-        return this.http.get<Movie>(this.exampleUrl);
+    getMovieById(movieId: number) {
+        return this.http.get<Movie>(`https://api.themoviedb.org/3/movie/${movieId}?api_key=8f698de309d981464d08b5325ff05667`);
     }
 
     getGenres() {
@@ -47,6 +46,12 @@ export class ApiCallService {
             )
                 .map(([key, value]) => `${key}=${value}`)
                 .join('&')}`
+        );
+    }
+
+    getSimilarMovies(movieId: Number) {
+        return this.http.get<MovieList>(
+            `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=8f698de309d981464d08b5325ff05667`
         );
     }
 

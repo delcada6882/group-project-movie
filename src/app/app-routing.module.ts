@@ -5,16 +5,27 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { MovieSearchPageComponent } from './pages/movie-search-page/movie-search-page.component';
 import { PopularPageComponent } from './pages/popular-page/popular-page.component';
+import { GenrePageComponent } from './pages/genre-page/genre-page.component';
+import { MovieEndpointComponent } from './pages/movie-endpoint/movie-endpoint.component';
+
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'folder/inbox',
+        redirectTo: 'movies',
         pathMatch: 'full'
     },
     {
         path: 'folder/:id',
         loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
+    },
+    {
+        path: 'movies/genre/:genreId',
+        component: GenrePageComponent
+    },
+    {
+        path: 'movies/films/:movieId',
+        component: MovieEndpointComponent
     },
     {
         path: 'profile',
@@ -43,7 +54,7 @@ const routes: Routes = [
     {
         path: 'movies/popular',
         component: PopularPageComponent
-    }
+    },
 ];
 
 @NgModule({

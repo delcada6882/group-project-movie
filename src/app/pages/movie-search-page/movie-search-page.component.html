@@ -1,48 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Movie Search</ion-title>
-    <!-- this right here is only for ANDROID. -->
-  </ion-toolbar>
-</ion-header>
+<app-page-header headerTitle="Movie Search" [menuIcon]="true"></app-page-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Movie Search</ion-title>
-      <!-- This right here is only for IOS -->
-    </ion-toolbar>
-  </ion-header>
-  <div class="searchArea">
-    <ion-input
-      id="searchInput"
-      label="Movie Search"
-      labelPlacement="stacked"
-      [clearInput]="true"
-      placeholder="Enter Movie"
-      [value]="searchMovie"
-      [(ngModel)]="searchMovie"
-    >
-    </ion-input>
-    <ion-button color="secondary" (click)="showDataList(searchMovie)"
-      >Search</ion-button
-    >
-  </div>
-  <ion-spinner *ngIf="showLoading" class="loadingCircle"></ion-spinner>
-  <ion-card *ngFor="let item of movieList">
-    <ion-card-header>
-      <ion-card-title>{{ item.original_title }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-img
-        *ngIf="item.poster_path"
-        src="{{ urlStart + item.poster_path }}"
-        class="posterImg"
-      />
-      <h1 *ngIf="!item.poster_path" class="noImageText">No Image provided</h1>
-      <p>{{ item.overview }}</p>
-    </ion-card-content>
-  </ion-card>
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">Movie Search</ion-title>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
+	<div class="searchArea">
+		<ion-input
+			id="searchInput"
+			label="Movie Search"
+			labelPlacement="stacked"
+			[clearInput]="true"
+			placeholder="Enter Movie"
+			[value]="searchMovie"
+			[(ngModel)]="searchMovie"
+		>
+		</ion-input>
+		<ion-button color="secondary" (click)="showDataList(searchMovie)"
+			>Search</ion-button
+		>
+	</div>
+	<ion-spinner *ngIf="showLoading" class="loadingCircle"></ion-spinner>
+	<ion-card *ngFor="let item of movieList">
+		<ion-card-header>
+			<ion-card-title>{{ item.original_title }}</ion-card-title>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-img
+				*ngIf="item.poster_path"
+				src="{{ urlStart + item.poster_path }}"
+				class="posterImg"
+			/>
+			<h1 *ngIf="!item.poster_path" class="noImageText">
+				No Image provided
+			</h1>
+			<p>{{ item.overview }}</p>
+		</ion-card-content>
+	</ion-card>
 </ion-content>

@@ -1,0 +1,142 @@
+<app-page-header
+	*ngIf="!showLoading"
+	headerTitle="{{ movieData?.title }}"
+	[menuIcon]="true"
+></app-page-header>
+
+<ion-content [fullscreen]="true" *ngIf="!showLoading">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">{{ movieData?.title }}</ion-title>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
+	<div id="moviePoster">
+		<ion-img
+			*ngIf="movieData?.poster_path"
+			src="{{ urlStart + movieData?.poster_path }}"
+			class="posterImg"
+		/>
+	</div>
+	<p *ngIf="movieData?.tagline !== ''" class="tagline">
+		{{ movieData?.tagline }}
+	</p>
+	<div id="backdrop">
+		<div class="top">
+			<a
+				*ngIf="backDropIcons && movieGenres"
+				href="movies/genre/{{ movieGenres[0] }}"
+			>
+				<ion-icon name="{{ backDropIcons[0] }}"> </ion-icon>
+			</a>
+			<p class="madeBy">Made By:</p>
+			<a
+				*ngIf="backDropIcons && movieGenres"
+				href="movies/genre/{{ movieGenres[1] }}"
+			>
+				<ion-icon name="{{ backDropIcons[1] }}"> </ion-icon>
+			</a>
+		</div>
+		<div class="middle">
+			<div *ngFor="let item of movieData?.production_companies">
+				<ion-img
+					class="logoImg"
+					*ngIf="item.logo_path !== null"
+					src="{{ urlStart + item.logo_path }}"
+				>
+				</ion-img>
+				<div class="logoImg" *ngIf="item.logo_path === null">
+					<p>{{ item.name }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<p (click)="runtimeChange()">
+				<span> {{ runtimeHeader }} </span>
+				<span> {{ runtimeData }} </span>
+			</p>
+			<p>
+				<span>Release Date:</span> <span>{{ releaseDateText }}</span>
+			</p>
+			<p (click)="moneyChange()">
+				<span> {{ moneyHeader }} </span>
+				<span>
+					{{ moneyAmount }}
+				</span>
+			</p>
+		</div>
+	</div>
+	<div>
+		<p id="description">{{ movieData?.overview }}</p>
+		<p>Genres:</p>
+		<p *ngFor="let item of movieData?.genres">{{ item.name }}</p>
+		<p>Status {{ movieData?.status }}</p>
+	</div>
+	<div>
+		<!-- <div class="backdropImg" *ngIf="movieData?.backdrop_path"></div> -->
+	</div>
+	<div class="similarMovies" (scroll)="testFunc()">
+		<app-movie-poster
+			[movieList]="similarMovies"
+			class="outline list"
+			[anchorTag]="true"
+		></app-movie-poster>
+	</div>
+</ion-content>
+
+<!-- This is only for loading screen -->
+<app-page-header
+	*ngIf="showLoading"
+	headerTitle="Loading..."
+	[menuIcon]="true"
+></app-page-header>
+
+<!-- This below is for the loading screen -->
+<ion-content [fullscreen]="true" *ngIf="showLoading">
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-skeleton-text
+				[animated]="true"
+				style="height: 40px"
+			></ion-skeleton-text>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
+
+	<div class="popularMoviesSection"></div>
+	<ion-skeleton-text
+		[animated]="true"
+		style="aspect-ratio: 2 / 3; width: 100vw; margin: 0"
+	></ion-skeleton-text>
+	<div>
+		<ion-skeleton-text
+			[animated]="true"
+			style="margin: 16px auto; width: 90%; height: 20px"
+		></ion-skeleton-text>
+		<ion-skeleton-text
+			[animated]="true"
+			style="margin: 16px auto; width: 90%; height: 20px"
+		></ion-skeleton-text>
+		<ion-skeleton-text
+			[animated]="true"
+			style="margin: 16px auto; width: 90%; height: 20px"
+		></ion-skeleton-text>
+		<ion-skeleton-text
+			[animated]="true"
+			style="margin: 16px auto; width: 90%; height: 20px"
+		></ion-skeleton-text>
+		<ion-skeleton-text
+			[animated]="true"
+			style="margin: 16px auto; width: 90%; height: 20px"
+		></ion-skeleton-text>
+	</div>
+	<div>
+		<!-- <div class="backdropImg" *ngIf="movieData?.backdrop_path"></div> -->
+	</div>
+	<div class="similarMovies">
+		<ion-skeleton-text
+			[animated]="true"
+			style="margin: 16px auto; width: 95%; height: 25vh"
+		></ion-skeleton-text>
+	</div>
+</ion-content>
