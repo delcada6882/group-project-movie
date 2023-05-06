@@ -1,0 +1,17 @@
+#MainLoginSegment {
+	display: flex;
+	flex-direction: column;
+	max-width: 500px;
+	margin: auto;
+	margin-top: 1em;
+	& > form > fieldset {
+		border-radius: 4px;
+		margin-bottom: 1em;
+		& > ion-button {
+			margin-top: 2em;
+		}
+	}
+	& > ion-label {
+		margin-top: 2em;
+	}
+}
