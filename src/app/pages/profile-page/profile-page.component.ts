@@ -13,7 +13,7 @@ export class ProfilePageComponent implements OnInit {
 		photoURL: this.authService.userData?.photoURL,
 		displayName: this.authService.userData?.displayName,
 		email: this.authService.userData?.email,
-		emailVerified: this.authService.userData?.emailVerified,
+		emailVerified: `${!!this.authService.userData?.emailVerified}`,
 	};
 
 	public userProfileDataGroup = new FormGroup({
@@ -59,9 +59,13 @@ export class ProfilePageComponent implements OnInit {
 			delete updatedUserValues.photoURL;
 
 		const res = await this.authService.updateCurrentUser(updatedUserValues);
-
-		console.log(res);
+		this.userProfileDataGroup.markAsPristine();
+		this.userProfileDataGroup.markAsUntouched();
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.userProfileSettingsGroup.valueChanges.subscribe((value) => {
+			this.authService.updateCurrentUser(value);
+		});
+	}
 }

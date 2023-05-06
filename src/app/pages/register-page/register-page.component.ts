@@ -32,6 +32,7 @@ export class RegisterPageComponent implements OnInit {
 			},
 		]),
 	});
+
 	get usernameAlert() {
 		const username = this.userFormGroup.get('username');
 		if (!(username?.invalid && (username?.dirty || username?.touched)))
@@ -41,6 +42,7 @@ export class RegisterPageComponent implements OnInit {
 			return 'Must be at least 6 characters';
 		return null;
 	}
+
 	get emailAlert() {
 		const email = this.userFormGroup.get('email');
 		if (!(email?.invalid && (email?.dirty || email?.touched))) return null;
@@ -48,6 +50,7 @@ export class RegisterPageComponent implements OnInit {
 		if (email?.hasError('email')) return 'Email is invalid';
 		return null;
 	}
+
 	get passwordAlert() {
 		const password = this.userFormGroup.get('password');
 		if (!(password?.invalid && (password?.dirty || password?.touched)))
@@ -57,6 +60,7 @@ export class RegisterPageComponent implements OnInit {
 			return 'Must be at least 6 characters';
 		return null;
 	}
+
 	get confirmPasswordAlert() {
 		const confirmPassword = this.userFormGroup.get('confirmPassword');
 		if (

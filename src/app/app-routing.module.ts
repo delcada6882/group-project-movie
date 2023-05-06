@@ -22,6 +22,10 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'TODO:RM-this-path',
+		component: ProfilePageComponent,
+	},
+	{
 		path: 'login',
 		component: LoginPageComponent,
 	},

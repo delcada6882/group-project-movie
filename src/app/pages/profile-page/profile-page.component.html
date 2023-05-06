@@ -16,30 +16,71 @@
 		</ion-toolbar>
 	</ion-header>
 
-	<h1 *ngIf="!authService.isLoggedIn">
-		You're Not logged in! <ion-icon name="lock-closed-outline"></ion-icon>
-	</h1>
+	<ion-card
+		id="NotLoggedInSegment"
+		*ngIf="!authService.isLoggedIn"
+		title="Go to Login Page"
+	>
+		<ion-card-header>
+			<h1>
+				You're Not logged in!
+				<ion-icon name="lock-closed-outline"></ion-icon>
+			</h1>
+		</ion-card-header>
+		<ion-card-content>
+			<a href="/login">
+				<ion-button>
+					<ion-icon slot="start" name="log-in-outline"></ion-icon>
+					Login
+				</ion-button>
+			</a>
+			<a href="/register">
+				<ion-button>
+					<ion-icon slot="start" name="person-add-outline"></ion-icon>
+					Register
+				</ion-button>
+			</a>
+		</ion-card-content>
+	</ion-card>
 
 	<div
 		id="MainProfileSegment"
-		class="UserID:{{ user.uid }}"
 		*ngIf="authService.userData as user"
+		class="UserID:{{ user.uid }}"
 	>
-		<h1>
-			Welcome:
-			<strong>{{ user.displayName ?? 'User' }}</strong>
-		</h1>
 		<form id="UserProfileDataForm" [formGroup]="userProfileDataGroup">
 			<fieldset>
 				<legend>Profile</legend>
-				<img
-					class="img-thumbnail"
-					src="{{ user.photoURL ?? '/assets/png/dummy-avatar.png' }}"
-					alt="{{ user.displayName }}"
-				/>
+				<ion-item>
+					<ion-avatar slot="start">
+						<img
+							class="img-thumbnail"
+							src="{{
+								user.photoURL ?? '/assets/png/dummy-avatar.png'
+							}}"
+							alt="{{ user.displayName }}"
+						/>
+					</ion-avatar>
+					<h1>
+						Welcome:
+						<strong>{{ user.displayName ?? 'User' }}</strong>
+					</h1>
+					<ion-button
+						(click)="authService.SignOut()"
+						slot="end"
+						expand="block"
+						shape="round"
+						color="danger"
+					>
+						Sign Out
+					</ion-button>
+				</ion-item>
+
 				<ion-item>
 					<ion-input
 						type="text"
+						placeholder="Display Name"
+						autocomplete="name"
 						labelPlacement="left"
 						label="Display Name: "
 						formControlName="displayName"
@@ -50,6 +91,7 @@
 					<ion-input
 						class="te"
 						type="text"
+						placeholder="Email"
 						labelPlacement="left"
 						name="email"
 						label="Email: "
@@ -61,6 +103,7 @@
 					<ion-input
 						readonly
 						label="Email Verified:"
+						placeholder="Email Verified"
 						labelPlacement="left"
 						formControlName="emailVerified"
 					/>

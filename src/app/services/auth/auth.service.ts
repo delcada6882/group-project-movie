@@ -38,11 +38,13 @@ export class AuthService {
 
 	get isLoggedIn(): boolean {
 		const user = this.userData;
-		return user !== null && user.emailVerified !== false ? true : false;
+		return user !== null;
 	}
 
-	get userData(): User {
-		const user = JSON.parse(localStorage.getItem('user') ?? '{}');
+	get userData(): User | null {
+		const localStorageItem = localStorage.getItem('user');
+		if (!localStorageItem) return null;
+		const user = JSON.parse(localStorageItem);
 		return user;
 	}
 
@@ -120,11 +122,12 @@ export class AuthService {
 		}
 	}
 
-	SetUserData(user: firebase.User | null) {
+	async SetUserData(user: firebase.User | null) {
 		if (!user) return;
+		localStorage.setItem('user', JSON.stringify(user));
 		const userRef: AngularFirestoreDocument<User> =
 			this.AngularFirestore.doc<User>(`users/${user.uid}`);
-		return userRef.set(
+		return await userRef.set(
 			{
 				displayName: user.displayName,
 				email: user.email,
@@ -157,7 +160,7 @@ export class AuthService {
 	}
 
 	async SignOut() {
-		return this.AngularFireAuth.signOut().then(() => {
+		return await this.AngularFireAuth.signOut().then(() => {
 			localStorage.removeItem('user');
 			this.Router.navigate([SUCCESS_REDIRECT]);
 		});
