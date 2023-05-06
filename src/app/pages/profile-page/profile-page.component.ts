@@ -1,7 +1,8 @@
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { User } from 'src/app/interfaces/firebase/user';
+import { userValidators } from 'src/app/formControl/form-validators';
 
 @Component({
 	selector: 'app-profile-page',
@@ -18,10 +19,14 @@ export class ProfilePageComponent implements OnInit {
 
 	public userProfileDataGroup = new FormGroup({
 		photoURL: new FormControl(this.defaultProfileData.photoURL),
-		displayName: new FormControl(this.defaultProfileData.displayName, [
-			Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/),
-		]),
-		email: new FormControl(this.defaultProfileData.email),
+		displayName: new FormControl(
+			this.defaultProfileData.displayName,
+			userValidators.displayName
+		),
+		email: new FormControl(
+			this.defaultProfileData.email,
+			userValidators.email
+		),
 		emailVerified: new FormControl(this.defaultProfileData.emailVerified),
 	});
 
@@ -34,6 +39,18 @@ export class ProfilePageComponent implements OnInit {
 	});
 
 	constructor(public authService: AuthService) {}
+
+	ngOnInit() {
+		this.userProfileSettingsGroup.valueChanges.subscribe((value) => {
+			this.authService.updateCurrentUser(value);
+		});
+	}
+
+	public getAlertMsg(path: string) {
+		const abstractControl = this.userProfileDataGroup.get(path);
+		if (!abstractControl) return;
+		return userValidators.alerts(abstractControl);
+	}
 
 	public resetUserProfileDataGroup() {
 		this.userProfileDataGroup.reset(this.defaultProfileData);
@@ -61,11 +78,5 @@ export class ProfilePageComponent implements OnInit {
 		const res = await this.authService.updateCurrentUser(updatedUserValues);
 		this.userProfileDataGroup.markAsPristine();
 		this.userProfileDataGroup.markAsUntouched();
-	}
-
-	ngOnInit() {
-		this.userProfileSettingsGroup.valueChanges.subscribe((value) => {
-			this.authService.updateCurrentUser(value);
-		});
 	}
 }

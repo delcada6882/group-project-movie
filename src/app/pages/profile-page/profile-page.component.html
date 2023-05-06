@@ -48,7 +48,12 @@
 		*ngIf="authService.userData as user"
 		class="UserID:{{ user.uid }}"
 	>
-		<form id="UserProfileDataForm" [formGroup]="userProfileDataGroup">
+		<form
+			id="UserProfileDataForm"
+			[formGroup]="userProfileDataGroup"
+			(submit)="updateUserProfile()"
+			(keyup.enter)="updateUserProfile()"
+		>
 			<fieldset>
 				<legend>Profile</legend>
 				<ion-item>
@@ -85,6 +90,9 @@
 						label="Display Name: "
 						formControlName="displayName"
 					/>
+					<div class="alert alert-danger">
+						{{ getAlertMsg('displayName') }}
+					</div>
 					<ion-icon name="create-outline" />
 				</ion-item>
 				<ion-item>
@@ -97,6 +105,9 @@
 						label="Email: "
 						formControlName="email"
 					/>
+					<div class="alert alert-danger">
+						{{ getAlertMsg('email') }}
+					</div>
 					<ion-icon name="create-outline" />
 				</ion-item>
 				<ion-item>
@@ -111,7 +122,10 @@
 				<ion-item>
 					<ion-button
 						(click)="updateUserProfile()"
-						[disabled]="!userProfileDataGroup.dirty"
+						[disabled]="
+							!userProfileDataGroup.dirty ||
+							!userProfileDataGroup.valid
+						"
 					>
 						Save
 					</ion-button>

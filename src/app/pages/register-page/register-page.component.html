@@ -36,7 +36,7 @@
 						formControlName="username"
 					></ion-input>
 					<div class="alert alert-danger">
-						{{ usernameAlert }}
+						{{ getAlertMsg('username') }}
 					</div>
 				</ion-item>
 				<ion-item>
@@ -51,7 +51,7 @@
 						formControlName="email"
 					></ion-input>
 					<div class="alert alert-danger">
-						{{ emailAlert }}
+						{{ getAlertMsg('email') }}
 					</div>
 				</ion-item>
 				<ion-item>
@@ -66,7 +66,7 @@
 						formControlName="password"
 					></ion-input>
 					<div class="alert alert-danger">
-						{{ passwordAlert }}
+						{{ getAlertMsg('password') }}
 					</div>
 				</ion-item>
 				<ion-item>
@@ -81,7 +81,7 @@
 						formControlName="confirmPassword"
 					></ion-input>
 					<div class="alert alert-danger">
-						{{ confirmPasswordAlert }}
+						{{ getAlertMsg('confirmPassword') }}
 					</div>
 				</ion-item>
 				<ion-button
@@ -104,7 +104,7 @@
 				</ion-button>
 			</fieldset>
 			<ion-label>
-				<a href="/register">Already have an account?</a>
+				<a href="/login">Already have an account?</a>
 			</ion-label>
 		</form>
 	</div>

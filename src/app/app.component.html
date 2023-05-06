@@ -3,8 +3,15 @@
 		<ion-menu contentId="main-content" type="overlay">
 			<ion-content>
 				<ion-list id="inbox-list">
-					<ion-list-header>USERNAME</ion-list-header>
-					<ion-note>EMAIL</ion-note>
+					<ion-list-header
+						*ngIf="authService.userData?.displayName"
+						>{{
+							authService.userData?.displayName
+						}}</ion-list-header
+					>
+					<ion-note *ngIf="authService.userData?.email">{{
+						authService.userData?.email
+					}}</ion-note>
 
 					<ion-menu-toggle auto-hide="false">
 						<ion-item

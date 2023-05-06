@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { userValidators } from 'src/app/formControl/form-validators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -9,18 +10,11 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class RegisterPageComponent implements OnInit {
 	public userFormGroup = new FormGroup({
-		username: new FormControl('', [
-			Validators.minLength(6),
-			Validators.required,
-		]),
-		email: new FormControl('', [Validators.email, Validators.required]),
-		password: new FormControl('', [
-			Validators.minLength(6),
-			Validators.required,
-		]),
+		username: new FormControl('', userValidators.displayName),
+		email: new FormControl('', userValidators.email),
+		password: new FormControl('', userValidators.password),
 		confirmPassword: new FormControl('', [
-			Validators.minLength(6),
-			Validators.required,
+			...userValidators.password,
 			() => {
 				if (
 					this.userFormGroup?.get('password')?.value !==
@@ -33,54 +27,15 @@ export class RegisterPageComponent implements OnInit {
 		]),
 	});
 
-	get usernameAlert() {
-		const username = this.userFormGroup.get('username');
-		if (!(username?.invalid && (username?.dirty || username?.touched)))
-			return null;
-		if (username?.hasError('required')) return 'Required';
-		if (username?.hasError('minlength'))
-			return 'Must be at least 6 characters';
-		return null;
-	}
-
-	get emailAlert() {
-		const email = this.userFormGroup.get('email');
-		if (!(email?.invalid && (email?.dirty || email?.touched))) return null;
-		if (email?.hasError('required')) return 'Required';
-		if (email?.hasError('email')) return 'Email is invalid';
-		return null;
-	}
-
-	get passwordAlert() {
-		const password = this.userFormGroup.get('password');
-		if (!(password?.invalid && (password?.dirty || password?.touched)))
-			return null;
-		if (password?.hasError('required')) return 'Required';
-		if (password?.hasError('minlength'))
-			return 'Must be at least 6 characters';
-		return null;
-	}
-
-	get confirmPasswordAlert() {
-		const confirmPassword = this.userFormGroup.get('confirmPassword');
-		if (
-			!(
-				confirmPassword?.invalid &&
-				(confirmPassword?.dirty || confirmPassword?.touched)
-			)
-		)
-			return null;
-		if (confirmPassword?.hasError('required')) return 'Required';
-		if (confirmPassword?.hasError('minlength'))
-			return 'Must be at least 6 characters';
-		if (confirmPassword?.hasError('notSame'))
-			return 'Passwords do not match';
-		return null;
-	}
-
 	constructor(public AuthService: AuthService) {}
 
 	ngOnInit() {}
+
+	public getAlertMsg(path: string) {
+		const abstractControl = this.userFormGroup.get(path);
+		if (!abstractControl) return;
+		return userValidators.alerts(abstractControl);
+	}
 
 	public async createUserProfile() {
 		this.userFormGroup.markAllAsTouched();

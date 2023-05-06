@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './components/modals/forgot-password/forgot-password.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -24,6 +25,7 @@ import { MovieSearchPageComponent } from './pages/movie-search-page/movie-search
 import { PopularPageComponent } from './pages/popular-page/popular-page.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { VerifyEmailComponent } from './components/modals/verify-email/verify-email.component';
 
 @NgModule({
 	declarations: [
@@ -35,6 +37,9 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 		PopularPageComponent,
 		PaginatorComponent,
 		ProfilePageComponent,
+
+		ForgotPasswordComponent,
+		VerifyEmailComponent,
 	],
 	imports: [
 		BrowserModule,
