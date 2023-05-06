@@ -18,11 +18,6 @@ export class MoviePageComponent implements OnInit {
   popularMovies: any = [];
   buttonText = 'Show More';
 
-  // showMorePopularMovies(item: Element) {
-  //   // item.classList.toggle('popularMoviesShowMore');
-  //   //TODO: Add a better looking transition so that the movies don't just appear
-  // }
-
   showPopularMovies(pageNum: number) {
     this.ApiCallService.getPopularMovies(pageNum).subscribe((data: any) => {
       console.log(data);

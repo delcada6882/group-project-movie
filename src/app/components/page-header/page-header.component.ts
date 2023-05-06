@@ -9,9 +9,12 @@ export class PageHeaderComponent implements OnInit {
 
   @Input() headerTitle?: String;
   @Input() menuIcon?: boolean
+  @Input() contentChild?: boolean;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.contentChild === undefined) this.contentChild = false
+  }
 
 }

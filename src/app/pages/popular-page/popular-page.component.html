@@ -4,12 +4,8 @@
 ></app-page-header>
 
 <ion-content [fullscreen]="true">
-	<ion-header collapse="condense">
-		<ion-toolbar>
-			<ion-title size="large">Popular Movies</ion-title>
-			<!-- This right here is only for IOS -->
-		</ion-toolbar>
-	</ion-header>
+	<app-page-header headerTitle="Popular Movies" [contentChild]="true">
+	</app-page-header>
 
 	<div class="popularMoviesSection">
 		<app-movie-poster

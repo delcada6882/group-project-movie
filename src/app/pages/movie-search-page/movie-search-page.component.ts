@@ -18,11 +18,6 @@ export class MovieSearchPageComponent implements OnInit {
 
   constructor(private ApiCallService: ApiCallService) { }
 
-  // showData() {
-  //   this.ApiCallService.getData().subscribe((data: Movie) => {
-  //     console.log(data);
-  //   });
-  // }
   showDataList(searchString: String) {
     this.showLoading = true;
     this.ApiCallService.getDataBySearch(searchString).subscribe((data: any) => {

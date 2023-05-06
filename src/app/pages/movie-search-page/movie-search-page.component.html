@@ -1,12 +1,8 @@
 <app-page-header headerTitle="Movie Search" [menuIcon]="true"></app-page-header>
 
 <ion-content [fullscreen]="true">
-	<ion-header collapse="condense">
-		<ion-toolbar>
-			<ion-title size="large">Movie Search</ion-title>
-			<!-- This right here is only for IOS -->
-		</ion-toolbar>
-	</ion-header>
+	<app-page-header headerTitle="Movie Search" [contentChild]="true">
+	</app-page-header>
 	<div class="searchArea">
 		<ion-input
 			id="searchInput"

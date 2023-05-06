@@ -41,13 +41,6 @@ export class AppComponent implements OnInit {
 
     constructor(private ApiCallService: ApiCallService) { }
 
-    // showData() {
-    //     this.ApiCallService.getMovieById().subscribe((data: Movie) => {
-    //         console.log(data);
-    //     });
-    // }
-
     ngOnInit() {
-        // this.showData();
     }
 }

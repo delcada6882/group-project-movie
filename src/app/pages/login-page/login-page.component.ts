@@ -4,10 +4,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
-// class UserModel {
-// 	constructor(public email: string, public password: string) {}
-// }
-
 @Component({
 	selector: 'app-login-page',
 	templateUrl: './login-page.component.html',
@@ -24,7 +20,7 @@ export class LoginPageComponent implements OnInit {
 	constructor(
 		private UserService: UserService,
 		public AuthService: AuthService
-	) {}
+	) { }
 
 	async ngOnInit() {
 		this.UserService.getUserObservable()?.subscribe((data) => {

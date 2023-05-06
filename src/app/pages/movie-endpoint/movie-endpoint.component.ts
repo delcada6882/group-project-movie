@@ -4,6 +4,7 @@ import { MenuController } from '@ionic/angular';
 import { IconPaths } from 'src/app/enums/icon-paths';
 import { Movie } from 'src/app/interfaces/api/movie';
 import { ApiCallService } from 'src/app/services/api-call.service';
+import months from 'src/utility/constants/month';
 
 @Component({
   selector: 'app-movie-endpoint',
@@ -11,26 +12,13 @@ import { ApiCallService } from 'src/app/services/api-call.service';
   styleUrls: ['./movie-endpoint.component.scss'],
 })
 export class MovieEndpointComponent implements OnInit {
-  months: any = {
-    0: 'January',
-    1: 'February',
-    2: 'March',
-    3: 'April',
-    4: 'May',
-    5: 'June',
-    6: 'July',
-    7: 'August',
-    8: 'September',
-    9: 'October',
-    10: 'November',
-    11: 'December',
-  };
-
   constructor(
     private ApiCallService: ApiCallService,
     private Host: ElementRef,
     public MenuCtrl: MenuController
   ) { }
+
+
 
   public urlStart = 'https://image.tmdb.org/t/p/w500';
 
@@ -136,7 +124,7 @@ export class MovieEndpointComponent implements OnInit {
             .getFullYear()
             .toString() +
           ', ' +
-          this.months[
+          months[
           new Date(this.movieData?.release_date).getUTCMonth()
           ] +
           ' ' +

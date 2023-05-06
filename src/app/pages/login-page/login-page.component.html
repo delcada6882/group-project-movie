@@ -1,12 +1,8 @@
-<app-page-header headerTitle="Login" [menuIcon]="true"></app-page-header>
+<app-page-header headerTitle="Login" [menuIcon]="false"></app-page-header>
 
 <ion-content [fullscreen]="true">
-	<ion-header collapse="condense">
-		<ion-toolbar>
-			<ion-title size="large">Login</ion-title>
-			<!-- This right here is only for IOS -->
-		</ion-toolbar>
-	</ion-header>
+	<app-page-header headerTitle="Login" [contentChild]="true">
+	</app-page-header>
 	<ion-segment id="MainLoginSegment">
 		<form
 			id="LoginForm"
