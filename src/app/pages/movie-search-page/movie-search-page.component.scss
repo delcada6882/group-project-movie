@@ -1,49 +1,49 @@
 ion-menu-button {
-  color: var(--ion-color-primary);
+	color: var(--ion-color-primary);
 }
 
 #container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+	text-align: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 #container strong {
-  font-size: 20px;
-  line-height: 26px;
+	font-size: 20px;
+	line-height: 26px;
 }
 
 #container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
+	font-size: 16px;
+	line-height: 22px;
+	color: #8c8c8c;
+	margin: 0;
 }
 
 #container a {
-  text-decoration: none;
+	text-decoration: none;
 }
 .noImageText {
-  margin-bottom: 16px;
+	margin-bottom: 16px;
 }
 
 .posterImg {
-  border-radius: 5px;
+	border-radius: 5px;
 }
 
 .searchArea {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90%;
 }
 
 .loadingCircle {
-  width: 100vw;
-  position: absolute;
-  transform: scale(2);
+	width: 100vw;
+	position: absolute;
+	transform: scale(2);
 }
