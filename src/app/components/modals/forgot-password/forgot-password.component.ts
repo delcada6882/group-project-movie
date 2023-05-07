@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { userValidators } from 'src/app/formControl/form-validators';
 import { AuthService } from 'src/app/services/auth/auth.service';

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/interfaces/api/movie';
 import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { PopularPageComponent } from '../popular-page/popular-page.component';
-import { Api } from 'src/app/interfaces/api/api-get';
 import { MovieList } from 'src/app/interfaces/api/movie-list';
 
 @Component({

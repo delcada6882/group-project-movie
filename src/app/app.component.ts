@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from './services/api-call.service';
-import { Movie } from './interfaces/api/movie';
 import { AuthService } from './services/auth/auth.service';
 @Component({
 	selector: 'app-root',

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { IconPaths } from 'src/app/enums/icon-paths';
