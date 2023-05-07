@@ -46,7 +46,7 @@
 	<div
 		id="MainProfileSegment"
 		*ngIf="authService.userData as user"
-		class="UserID:{{ user.uid }}"
+		class="User:{{ user.uid }}"
 	>
 		<form
 			id="UserProfileDataForm"
@@ -86,21 +86,18 @@
 						type="text"
 						placeholder="Display Name"
 						autocomplete="name"
-						labelPlacement="left"
 						label="Display Name: "
 						formControlName="displayName"
 					/>
 					<div class="alert alert-danger">
 						{{ getAlertMsg('displayName') }}
 					</div>
-					<ion-icon name="create-outline" />
+					<ion-icon slot="end" name="create-outline" />
 				</ion-item>
 				<ion-item>
 					<ion-input
-						class="te"
 						type="text"
 						placeholder="Email"
-						labelPlacement="left"
 						name="email"
 						label="Email: "
 						formControlName="email"
@@ -108,16 +105,21 @@
 					<div class="alert alert-danger">
 						{{ getAlertMsg('email') }}
 					</div>
-					<ion-icon name="create-outline" />
+					<ion-icon slot="end" name="create-outline" />
 				</ion-item>
 				<ion-item>
-					<ion-input
-						readonly
-						label="Email Verified:"
-						placeholder="Email Verified"
-						labelPlacement="left"
-						formControlName="emailVerified"
-					/>
+					<ion-label>
+						Email Verified:
+						<strong>{{ user.emailVerified }}</strong></ion-label
+					>
+					<ion-button
+						*ngIf="!user.emailVerified"
+						slot="end"
+						(click)="sendEmailVerification()"
+					>
+						<ion-icon slot="start" name="mail-outline"></ion-icon>
+						<ion-label slot="end">Verify Email</ion-label>
+					</ion-button>
 				</ion-item>
 				<ion-item>
 					<ion-button

@@ -14,14 +14,26 @@ declare namespace FormValidators {
 	}
 }
 
+export const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // REGEX: Email format
+export const WHITE_SPACE_REGEX = /^(\s+\S+\s*)*(?!\s).*$/; // REGEX: No leading or trailing spaces
+
 export const userValidators: FormValidators.user = {
-	email: [Validators.required, Validators.email],
+	email: [
+		Validators.required,
+		Validators.email,
+		(control) => {
+			if (control.value && !control.value.match(EMAIL_REGEX))
+				return {
+					email: true,
+				};
+			else return null;
+		},
+	],
 	displayName: [
 		Validators.required,
 		Validators.minLength(6),
 		(control: AbstractControl) => {
-			// REGEX: No leading or trailing spaces
-			if (control.value && !control.value.match(/^(\s+\S+\s*)*(?!\s).*$/))
+			if (control.value && !control.value.match(WHITE_SPACE_REGEX))
 				return {
 					whiteSpace: true,
 				};

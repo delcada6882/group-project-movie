@@ -23,13 +23,12 @@
 
 				& > ion-item {
 					width: 100%;
-					& > ion-input::ng-deep > label {
-						// TODO: Find a way to do this without use ::ng-deep
-						& > .label-text-wrapper {
-							margin-right: 8px;
-						}
-						& > .native-wrapper {
-							font-weight: bold;
+					& > ion-input {
+						// TODO: find a way to do this without using ::ng-deep
+						&::ng-deep > label {
+							& > .native-wrapper {
+								font-weight: bold;
+							}
 						}
 					}
 					& > .img-thumbnail {
