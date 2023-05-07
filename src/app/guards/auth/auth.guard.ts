@@ -1,13 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import {
-	CanActivate,
 	ActivatedRouteSnapshot,
 	RouterStateSnapshot,
 	Router,
 	CanActivateFn,
 } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -18,9 +16,9 @@ class PermissionsService {
 	canActivate(
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
-	): boolean {
+	): boolean | Promise<boolean> {
 		if (this.authService.isLoggedIn !== true) {
-			this.router.navigate(['login']);
+			return this.router.navigate(['login']);
 		}
 		return true;
 	}
@@ -29,6 +27,6 @@ class PermissionsService {
 export const AuthGuard: CanActivateFn = (
 	next: ActivatedRouteSnapshot,
 	state: RouterStateSnapshot
-): boolean => {
+): boolean | Promise<boolean> => {
 	return inject(PermissionsService).canActivate(next, state);
 };

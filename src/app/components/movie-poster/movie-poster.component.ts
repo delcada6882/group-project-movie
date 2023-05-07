@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 
 @Component({
 	selector: 'app-movie-poster',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./movie-poster.component.scss'],
 })
 export class MoviePosterComponent implements OnInit {
-	@Input() movieList: any = [];
+	@Input() movieList: MovieList[] = [];
 	@Input() anchorTag: boolean = false;
 
 	urlStart = 'https://image.tmdb.org/t/p/w500';

@@ -68,8 +68,9 @@
 		<p *ngFor="let item of movieData?.genres">{{ item.name }}</p>
 		<p>Status {{ movieData?.status }}</p>
 	</div>
-	<div class="similarMovies" (scroll)="testFunc()">
+	<div class="similarMovies" (scroll)="scrollTimeout()">
 		<app-movie-poster
+			*ngIf="similarMovies"
 			[movieList]="similarMovies"
 			class="outline list"
 			[anchorTag]="true"

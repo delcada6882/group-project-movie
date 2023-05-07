@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { EventEmitter } from '@angular/core';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
+import { Api } from 'src/app/interfaces/api/api-get';
 
 @Component({
 	selector: 'app-paginator',
@@ -12,44 +14,42 @@ export class PaginatorComponent implements OnInit {
 	@Input() pageNumVar: number | undefined;
 	@Input() totalPageNum: Array<number> | undefined;
 	@Input() showMovies: Function | undefined;
-	@Input() moviesArr: Array<any> | undefined;
+	@Input() moviesArr: Array<MovieList> | undefined;
 
 	@Output() childToParent = new EventEmitter();
 
 	constructor(private ApiCallService: ApiCallService) {}
 
-	setPageNum = 0;
+	private setPageNum: number = 0;
 
-	scrollElement?: Element;
+	private scrollElement?: Element;
 
-	sendToParent(name: any) {
+	ngOnInit() {
+		this.sendToParent(1);
+	}
+
+	public sendToParent(name: number) {
 		this.setPageNum = name;
 		this.childToParent.emit(name);
 	}
 
-	backArrow() {
+	public backArrow() {
 		if (this.setPageNum > 1) {
 			this.paginatorSelect(this.setPageNum - 1);
-
-			this.scrollElement?.scrollTo(
-				// Number(item) * (this.scrollElement.scrollWidth / this.totalPageNum?.length)
-				(Number(this.setPageNum) - 1) * 35,
-				0
-			);
+			this.scrollElement?.scrollTo((Number(this.setPageNum) - 1) * 35, 0); // 35 is the width of each paginator number
 		}
 	}
 
-	forwardArrow() {
-		if (this.totalPageNum === undefined) return;
+	public forwardArrow() {
+		if (!this.totalPageNum) return;
 		if (this.setPageNum < this.totalPageNum?.length) {
-			console.log(this.totalPageNum?.length);
 			this.paginatorSelect(this.setPageNum + 1);
 
-			this.scrollElement?.scrollTo((Number(this.setPageNum) - 1) * 35, 0);
+			this.scrollElement?.scrollTo((Number(this.setPageNum) - 1) * 35, 0); // 35 is the width of each paginator number
 		}
 	}
-	paginatorSelect(item: Number) {
-		if (this.totalPageNum === undefined) return;
+	public paginatorSelect(item: number) {
+		if (!this.totalPageNum) return;
 		if (this.setPageNum !== item) {
 			this.setPageNum = Number(item);
 			document.querySelectorAll('.paginatorNum').forEach((idx) => {
@@ -64,19 +64,11 @@ export class PaginatorComponent implements OnInit {
 		}
 	}
 
-	nonSpecMoviesArr = [];
-
-	showPopularMovies(pageNum: number) {
-		console.log(pageNum);
+	public showPopularMovies(pageNum: number) {
 		return this.ApiCallService.getPopularMovies(pageNum).subscribe(
-			(data: any) => {
-				// console.log(data);
+			(data: Api.Paginated<MovieList>) => {
 				this.moviesArr = data.results;
 			}
 		);
-	}
-
-	ngOnInit() {
-		this.sendToParent(1);
 	}
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PaginatorComponent } from 'src/app/components/paginator/paginator.component';
 import { MovieGenres } from 'src/app/enums/movie-genres';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
 
 @Component({
@@ -15,11 +16,11 @@ export class GenrePageComponent implements OnInit {
 	public folder!: string;
 	private activatedRoute = inject(ActivatedRoute);
 
-	popularMovies: any = [];
+	popularMovies = [];
 	urlStart = 'https://image.tmdb.org/t/p/w500';
 	pageNumVar = 1;
 
-	totalNumSend: any = [];
+	totalNumSend: number[] = [];
 
 	clickAnim(item: Element) {
 		item.classList.add('clickAnimClass');
@@ -33,28 +34,25 @@ export class GenrePageComponent implements OnInit {
 			this.activatedRoute.snapshot.paramMap.get('genreId') || '';
 	}
 
-	movieList: any = [];
+	movieList: MovieList[] = [];
 
 	showMovies(pageNum: number) {
 		this.ApiCallService.getDataByFilter({
 			with_genres: [MovieGenres[this.folder as keyof typeof MovieGenres]],
 			page: pageNum,
-		}).subscribe((data: any) => {
-			console.log(MovieGenres[this.folder as keyof typeof MovieGenres]);
-			console.log(data);
+		}).subscribe((data) => {
 			this.movieList = data.results;
 			if (data.total_pages > 500) {
-				this.totalNumSend = new Array(500).fill(0).map((x, i) => i + 1);
+				this.totalNumSend = new Array(500).fill(0).map((_, i) => i + 1);
 			} else {
 				this.totalNumSend = new Array(data.total_pages)
 					.fill(0)
-					.map((x, i) => i + 1);
+					.map((_, i) => i + 1);
 			}
-			console.log(this.totalNumSend);
 		});
 	}
 
-	childToParent(name: any) {
+	childToParent(name: number) {
 		this.showMovies(name);
 	}
 

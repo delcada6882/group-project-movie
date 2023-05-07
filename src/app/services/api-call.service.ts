@@ -1,40 +1,35 @@
-import { ApiFilter } from './../interfaces/api/api-filter';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { Movie } from '../interfaces/api/movie';
 import { MovieGenres } from '../enums/movie-genres';
 import { MovieList } from '../interfaces/api/movie-list';
+import { ApiFilter } from './../interfaces/api/api-filter';
+import { API_KEY } from 'src/utility/constants/api';
+import { Api } from '../interfaces/api/api-get';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ApiCallService {
-	private exampleUrl =
-		'https://api.themoviedb.org/3/movie/550?api_key=8f698de309d981464d08b5325ff05667';
-	private discoverMovieUrl =
-		'https://api.themoviedb.org/3/discover/movie?api_key=8f698de309d981464d08b5325ff05667';
-	private searchMovieUrl =
-		'https://api.themoviedb.org/3/search/movie?api_key=8f698de309d981464d08b5325ff05667';
-	private popularUrl =
-		'https://api.themoviedb.org/3/movie/popular?api_key=8f698de309d981464d08b5325ff05667';
+	private discoverMovieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
+	private searchMovieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}`;
+	private popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
 
 	constructor(private http: HttpClient) {}
 
-	getMovieById(movieId: number) {
+	public getMovieById(movieId: number) {
 		return this.http.get<Movie>(
-			`https://api.themoviedb.org/3/movie/${movieId}?api_key=8f698de309d981464d08b5325ff05667`
+			`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`
 		);
 	}
 
-	getGenres() {
-		return this.http.get<Movie>(
+	public getGenres() {
+		return this.http.get<MovieList>(
 			`${this.discoverMovieUrl}&with_genres=${MovieGenres.Action}`
 		);
 	}
 
-	getDataByFilter(apiFilter: ApiFilter) {
+	public getDataByFilter(apiFilter: ApiFilter) {
 		if (
 			apiFilter.with_genres &&
 			typeof apiFilter?.with_genres[0] === 'string'
@@ -42,7 +37,7 @@ export class ApiCallService {
 			apiFilter.with_genres = apiFilter.with_genres.map<number>(
 				(genre) => (MovieGenres[genre] ?? 0) as number
 			);
-		return this.http.get<Movie>(
+		return this.http.get<Api.Paginated<MovieList>>(
 			`${this.discoverMovieUrl}${apiFilter ? '&' : '?'}${Object.entries(
 				apiFilter
 			)
@@ -51,20 +46,20 @@ export class ApiCallService {
 		);
 	}
 
-	getSimilarMovies(movieId: Number) {
-		return this.http.get<MovieList>(
-			`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=8f698de309d981464d08b5325ff05667`
+	public getSimilarMovies(movieId: Number) {
+		return this.http.get<Api.Paginated<MovieList>>(
+			`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${API_KEY}`
 		);
 	}
 
-	getDataBySearch(searchString: String) {
-		return this.http.get<MovieList>(
+	public getDataBySearch(searchString: String) {
+		return this.http.get<Api.Paginated<MovieList>>(
 			`${this.searchMovieUrl}&language=en-US&query=${searchString}&page=1&include_adult=false`
 		);
 	}
 
-	getPopularMovies(pageNum: number) {
-		return this.http.get<MovieList>(
+	public getPopularMovies(pageNum: number) {
+		return this.http.get<Api.Paginated<MovieList>>(
 			this.popularUrl + `&page=${String(pageNum)}`
 		);
 	}
