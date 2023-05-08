@@ -9,7 +9,7 @@ import { User } from 'src/app/interfaces/firebase/user';
 import * as Auth from '@firebase/auth';
 import firebase from 'firebase/compat';
 
-function handleError(err: any) {
+function handleError(err: unknown) {
 	console.log('ERROR', err);
 	if (err instanceof Error)
 		console.error(

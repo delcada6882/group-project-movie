@@ -1,10 +1,11 @@
-import { Component, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { IconPaths } from 'src/app/enums/icon-paths';
 import { Movie } from 'src/app/interfaces/api/movie';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
-import months from 'src/utility/constants/month';
+import { MONTHS_OF_YEAR } from 'src/utility/constants/month';
 
 @Component({
 	selector: 'app-movie-endpoint',
@@ -22,31 +23,31 @@ export class MovieEndpointComponent implements OnInit {
 
 	public timeoutId: NodeJS.Timeout | undefined;
 
-	movieData?: Movie;
+	public movieData?: Movie;
 
-	showLoading: boolean = true;
+	public showLoading: boolean = true;
 
-	movieId?: number;
+	public movieId?: number;
 
-	private activatedRoute = inject(ActivatedRoute);
+	public activatedRoute = inject(ActivatedRoute);
 
-	similarMovies?: any[];
+	public similarMovies?: MovieList[];
 
-	revenueText?: string;
+	public revenueText?: string;
 
-	releaseDateText?: string;
+	public releaseDateText?: string;
 
-	backDropIcons?: Array<any> = [];
+	public backDropIcons?: Array<any> = [];
 
-	smallerTest?: string;
+	public smallerTest?: string;
 
-	movieGenres?: Array<string> = [];
+	public movieGenres?: Array<string> = [];
 
-	moneyHeader?: string = 'Budget: ';
-	moneyAmount?: string;
+	public moneyHeader?: string = 'Budget: ';
+	public moneyAmount?: string;
 
-	runtimeHeader?: string = 'Runtime: ';
-	runtimeData?: string;
+	public runtimeHeader?: string = 'Runtime: ';
+	public runtimeData?: string;
 
 	ngOnInit() {
 		this.showLoading = true;
@@ -58,14 +59,13 @@ export class MovieEndpointComponent implements OnInit {
 		this.initTimeout();
 	}
 
-	initTimeout() {
+	private initTimeout() {
 		this.timeoutId = setTimeout(() => {
-			console.log('done');
 			this.MenuCtrl.swipeGesture(true);
 		}, 1000);
 	}
 
-	moneyChange() {
+	public moneyChange() {
 		if (this.moneyHeader === 'Budget: ') {
 			this.moneyHeader = 'Revenue: ';
 			if (this.movieData?.revenue === 0) {
@@ -89,24 +89,23 @@ export class MovieEndpointComponent implements OnInit {
 			});
 		}
 	}
-	runtimeChange() {
+	public runtimeChange() {
 		if (this.runtimeHeader === 'Runtime: ') {
 			this.runtimeHeader = 'Status: ';
 			this.runtimeData = this.movieData?.status;
 		} else {
 			this.runtimeHeader = 'Runtime: ';
-			this.runtimeData = this.movieData?.runtime?.toString() + ' minutes';
+			this.runtimeData = `${this.movieData?.runtime} minutes`;
 		}
 	}
 
-	showMovie() {
+	public showMovie() {
 		this.ApiCallService.getMovieById(Number(this.movieId)).subscribe(
 			(data: Movie) => {
-				console.log(data);
 				this.movieData = data;
 				this.Host.nativeElement.style.setProperty(
 					`--backdrop-image`,
-					'url(' + this.urlStart + this.movieData.backdrop_path + ')'
+					`url(${this.urlStart + this.movieData.backdrop_path})`
 				);
 				this.Host.nativeElement.style.setProperty(
 					`--company-image-amount`,
@@ -120,20 +119,15 @@ export class MovieEndpointComponent implements OnInit {
 						currency: 'USD',
 					}
 				);
-				this.runtimeData =
-					this.movieData?.runtime?.toString() + ' minutes';
-				this.releaseDateText =
-					new Date(this.movieData?.release_date)
-						.getFullYear()
-						.toString() +
-					', ' +
-					months[
+				this.runtimeData = `${this.movieData?.runtime} minutes`;
+				this.releaseDateText = `${new Date(
+					this.movieData?.release_date
+				).getFullYear()}, ${
+					MONTHS_OF_YEAR[
 						new Date(this.movieData?.release_date).getUTCMonth()
-					] +
-					' ' +
-					new Date(this.movieData?.release_date)
-						.getUTCDate()
-						.toString();
+					]
+				} ${new Date(this.movieData?.release_date).getUTCDate()}`;
+
 				if (this.movieData?.revenue === 0) {
 					this.revenueText = 'Unknown';
 				} else {
@@ -145,35 +139,26 @@ export class MovieEndpointComponent implements OnInit {
 
 				for (let x = 0; x < 2; x++) {
 					this.smallerTest = this.movieData?.genres[x]?.name;
-
-					console.log(
-						IconPaths[this.smallerTest as keyof typeof IconPaths]
-					);
-					console.log(this.movieData.genres[x]?.name);
 					this.backDropIcons?.push(
 						IconPaths[this.smallerTest as keyof typeof IconPaths]
 					);
 					this.movieGenres?.push(this.movieData.genres[x]?.name);
 				}
 
-				console.log(this.backDropIcons);
-
 				this.showLoading = false;
 			}
 		);
 	}
 
-	testFunc() {
-		console.log('test');
+	public scrollTimeout() {
 		this.MenuCtrl.swipeGesture(false);
 		clearTimeout(this.timeoutId);
 		this.initTimeout();
 	}
 
-	getSimilarMovies() {
+	public getSimilarMovies() {
 		this.ApiCallService.getSimilarMovies(Number(this.movieId)).subscribe(
-			(data: any) => {
-				console.log(data);
+			(data) => {
 				this.similarMovies = data.results;
 			}
 		);

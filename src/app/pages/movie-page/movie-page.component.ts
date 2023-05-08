@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/interfaces/api/movie';
-import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import { PopularPageComponent } from '../popular-page/popular-page.component';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 
 @Component({
-  selector: 'app-movie-page',
-  templateUrl: './movie-page.component.html',
-  styleUrls: ['./movie-page.component.scss'],
+	selector: 'app-movie-page',
+	templateUrl: './movie-page.component.html',
+	styleUrls: ['./movie-page.component.scss'],
 })
 export class MoviePageComponent implements OnInit {
-  constructor(private ApiCallService: ApiCallService) { }
+	public popularMovies: MovieList[] = [];
+	public buttonText = 'Show More';
 
+	componentPop = PopularPageComponent;
 
-  componentPop = PopularPageComponent;
+	constructor(private ApiCallService: ApiCallService) {}
 
-  popularMovies: any = [];
-  buttonText = 'Show More';
+	ngOnInit() {
+		this.showPopularMovies(1);
+	}
 
-  showPopularMovies(pageNum: number) {
-    this.ApiCallService.getPopularMovies(pageNum).subscribe((data: any) => {
-      console.log(data);
-      this.popularMovies = data.results;
-    });
-  }
-  ngOnInit() {
-    this.showPopularMovies(1);
-  }
+	public showPopularMovies(pageNum: number) {
+		this.ApiCallService.getPopularMovies(pageNum).subscribe((data) => {
+			this.popularMovies = data.results;
+		});
+	}
 }
