@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { User } from 'src/app/interfaces/firebase/user';
 import { userValidators } from 'src/app/formControl/form-validators';
+import { ModalController } from '@ionic/angular';
+import { VerifyEmailComponent } from 'src/app/components/modals/verify-email/verify-email.component';
 
 @Component({
 	selector: 'app-profile-page',
@@ -14,7 +16,6 @@ export class ProfilePageComponent implements OnInit {
 		photoURL: this.authService.userData?.photoURL,
 		displayName: this.authService.userData?.displayName,
 		email: this.authService.userData?.email,
-		emailVerified: `${!!this.authService.userData?.emailVerified}`,
 	};
 
 	public userProfileDataGroup = new FormGroup({
@@ -27,7 +28,6 @@ export class ProfilePageComponent implements OnInit {
 			this.defaultProfileData.email,
 			userValidators.email
 		),
-		emailVerified: new FormControl(this.defaultProfileData.emailVerified),
 	});
 
 	public userProfileSettingsGroup = new FormGroup({
@@ -38,7 +38,10 @@ export class ProfilePageComponent implements OnInit {
 		),
 	});
 
-	constructor(public authService: AuthService) {}
+	constructor(
+		public authService: AuthService,
+		private modalController: ModalController
+	) {}
 
 	ngOnInit() {
 		this.userProfileSettingsGroup.valueChanges.subscribe((value) => {
@@ -54,6 +57,16 @@ export class ProfilePageComponent implements OnInit {
 
 	public resetUserProfileDataGroup() {
 		this.userProfileDataGroup.reset(this.defaultProfileData);
+	}
+
+	public async sendEmailVerification() {
+		const modal = await this.modalController.create({
+			component: VerifyEmailComponent,
+			componentProps: {
+				email: this.authService.userData?.email,
+			},
+		});
+		return await modal.present();
 	}
 
 	public async updateUserProfile() {

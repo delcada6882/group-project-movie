@@ -1,8 +1,20 @@
-<app-page-header headerTitle="Login" [menuIcon]="true"></app-page-header>
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>Login</ion-title>
+		<!-- this right here is only for ANDROID. -->
+	</ion-toolbar>
+</ion-header>
 
 <ion-content [fullscreen]="true">
-	<app-page-header headerTitle="Login" [contentChild]="true">
-	</app-page-header>
+	<ion-header collapse="condense">
+		<ion-toolbar>
+			<ion-title size="large">Login</ion-title>
+			<!-- This right here is only for IOS -->
+		</ion-toolbar>
+	</ion-header>
 	<div id="MainLoginSegment">
 		<form
 			id="LoginForm"
@@ -53,21 +65,21 @@
 					Forgot Password?
 				</ion-button>
 			</fieldset>
-			<fieldset>
-				<legend>Or</legend>
-				<ion-button
-					type="button"
-					class="btn googleBtn"
-					(click)="signInWithGoogle()"
-				>
-					<ion-icon slot="start" name="logo-google"></ion-icon>
-					Sign in with Google
-				</ion-button>
-			</fieldset>
-			<ion-label>
-				Don't have an account?
-				<a href="/register">Make One!</a>
-			</ion-label>
 		</form>
+		<fieldset>
+			<legend>Or</legend>
+			<ion-button
+				type="button"
+				class="btn googleBtn"
+				(click)="signInWithGoogle()"
+			>
+				<ion-icon slot="start" name="logo-google"></ion-icon>
+				Sign in with Google
+			</ion-button>
+		</fieldset>
+		<ion-label>
+			Don't have an account?
+			<a href="/register">Make One!</a>
+		</ion-label>
 	</div>
 </ion-content>
