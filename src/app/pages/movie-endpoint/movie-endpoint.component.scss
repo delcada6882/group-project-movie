@@ -1,36 +1,30 @@
-:host {
-	--backdrop-image: '';
-	--company-image-amount: 0;
+.actionList {
+	background-color: #fff;
 }
-#moviePoster {
-	overflow: hidden;
-	border-radius: 5px;
+.backGroundWhite {
+	background-color: #fff;
 }
-.backdropImg {
-	background-image: var(--backdrop-image);
-	height: 100vh;
-	width: 100vw;
-	top: 0;
-	object-fit: cover;
-	position: absolute;
-	z-index: -1;
+.moneyHeader:hover {
+	cursor: pointer;
 }
-.similarMovies {
-	overflow: scroll;
+.runTime:hover {
+	cursor: pointer;
 }
+
 #backdrop {
 	border-radius: 5px;
-	margin-top: 10px;
 	width: 100vw;
-	background-image: var(--backdrop-image);
+	// background-image: var(--backdrop-image);
 	background-size: cover;
 	background-position: center center;
 	background-blend-mode: darken;
-	background-color: rgba(0, 0, 0, 0.8);
+	// background-color: var(--ion-color-step-150);
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-around;
-	padding: 3% 0;
+	padding: 0% 0;
+	margin-bottom: 20px;
+	background-color: #fff;
 	ion-icon {
 		transform: scale(2.5);
 		color: rgba(255, 255, 255, 0.4);
@@ -38,8 +32,9 @@
 	.top {
 		padding: 2% 5%;
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
+		border-bottom: 1px solid var(--ion-background-color);
 		.madeBy {
 			font-weight: 700;
 			font-size: 18px;
@@ -47,10 +42,13 @@
 		}
 	}
 	.middle {
-		padding: 0 5%;
+		padding: 2% 5%;
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: space-between;
+		justify-content: space-around;
+		align-items: center;
+		border-bottom: 1px solid var(--ion-background-color);
+
 		.logoImg {
 			display: flex;
 			justify-content: center;
@@ -58,35 +56,260 @@
 			text-align: center;
 			backdrop-filter: blur(5px);
 			border-radius: 5px;
+			padding: 5px;
 			aspect-ratio: 164 / 100;
 			min-width: 20vh;
-			// background-color: var(--ion-color-step-150);
+			// background-color: var(--ion-color-step-200);
 			margin: 1% 0;
-			max-width: calc((100vw / var(--company-image-amount)) - 10vw);
-			width: calc((100vw / var(--company-image-amount)) - 10vw);
+			// max-width: calc((100vw / var(--company-image-amount)) - 10vw);
+			max-width: 40vw;
+			// width: calc((100vw / var(--company-image-amount)) - 10vw);
 			outline: 1px solid var(--ion-color-step-150);
+			background-color: var(--ion-background-color);
+		}
+		.unknown {
+			color: var(--ion-color-step-650);
+			font-weight: 700;
+			font-size: 20px;
+			margin: 0;
 		}
 	}
 	.bottom {
-		padding: 2% 0;
+		padding: 2% 5%;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		align-items: flex-end;
+		.moneyTooBig {
+			font-size: 14px;
+		}
+		.releaseTooBig {
+			font-size: 14px;
+		}
 		p {
+			height: min-content;
+			min-width: 28%;
+			padding: 10px;
+			border-radius: 5px;
 			margin: 0;
 			text-align: center;
 			display: flex;
 			flex-flow: column wrap;
+			justify-content: center;
+			align-items: center;
+			min-height: 6.2vh;
+			background-color: var(--ion-background-color);
 		}
 	}
 }
-.tagline {
-	text-align: center;
-	font-size: 20px;
-	font-weight: 700;
-	margin: 0;
+.actionList {
+	border-radius: 5px;
 }
-#description {
+
+.cast {
+	display: flex;
+	overflow: scroll;
+	align-items: center;
+}
+.unknownText {
+	margin: 0 auto;
 	text-align: center;
-	font-size: 20px;
+}
+.actorImg {
+	width: 25vw;
+	overflow: hidden;
+	aspect-ratio: 1 / 1;
+	border-radius: 5px;
+}
+.actorDiv {
+	background-color: #fff;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	// background-color: var(--ion-color-step-200);
+	border-radius: 5px;
+	margin: 0 10px;
+	padding: 5px;
+	text-align: center;
+	p {
+		min-height: 36px;
+		display: flex;
+		align-items: center;
+		margin: 0;
+	}
+}
+.actorNoImg {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 1 / 1;
+	box-shadow: inset 5px 5px 6px 0px rgba(0, 0, 0, 0.17);
+}
+
+@media (prefers-color-scheme: dark) {
+	.backGroundWhite {
+		background-color: unset;
+	}
+	:host {
+		--backdrop-image: '';
+		--company-image-amount: 0;
+	}
+	#moviePoster {
+		overflow: hidden;
+		border-radius: 5px;
+		width: 100vw;
+		aspect-ratio: 2 / 3;
+	}
+	.noImage {
+		width: 100vw;
+		aspect-ratio: 2 / 3;
+		// box-shadow: inset 5px 5px 6px 0px rgba(0, 0, 0, 0.17);
+		background-color: var(--ion-color-step-150);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		p {
+			color: var(--ion-color-step-650);
+			font-weight: 700;
+			font-size: 30px;
+			margin: 0;
+		}
+	}
+	.logoImg {
+		background-color: var(--ion-color-step-200) !important;
+	}
+	.bottom {
+		p {
+			background-color: var(--ion-color-step-200) !important;
+		}
+	}
+	.backdropImg {
+		background-image: var(--backdrop-image);
+		height: 100vh;
+		width: 100vw;
+		top: 0;
+		object-fit: cover;
+		position: absolute;
+		z-index: -1;
+	}
+	.similarMovies {
+		overflow: scroll;
+	}
+	.modalText {
+		border-radius: 5px;
+	}
+	.actionList {
+		border-radius: 5px;
+		background-color: unset;
+	}
+	.tagline {
+		text-align: center;
+		font-size: 20px;
+		font-weight: 700;
+		margin: 10px 0;
+	}
+	#description {
+		text-align: center;
+		font-size: 20px;
+	}
+	#favorite {
+		position: absolute;
+		right: 1vw;
+		top: 1vh;
+		color: red;
+	}
+	#backdrop {
+		background-color: var(--ion-color-step-50);
+		&.ios {
+			border: 1px solid var(--ion-color-step-150);
+		}
+	}
+	.actorDiv {
+		background-color: var(--ion-color-step-200);
+	}
+}
+
+@media (min-width: 767px) {
+	#moviePoster {
+		max-width: 50vw;
+	}
+}
+
+@media (min-width: 1500px) {
+	.actorImg {
+		width: 8vw;
+	}
+	.actorDiv {
+		p {
+			min-height: 36px;
+		}
+	}
+	.actorDiv {
+		transition: 0.2s;
+	}
+	// .actorDiv:hover {
+	// 	cursor: pointer;
+	// 	background-color: var(--ion-color-step-250);
+	// 	transform: translateY(-5px);
+	// 	transition: 0.2s;
+	// }
+	.cast {
+		height: 22vh;
+	}
+	#moviePoster {
+		display: inline-block;
+		max-width: 20vw;
+		margin: 0 auto;
+	}
+	.noImage {
+		max-width: 20vw;
+		aspect-ratio: 2 / 3;
+		// box-shadow: inset 5px 5px 6px 0px rgba(0, 0, 0, 0.17);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		p {
+			color: var(--ion-color-step-650);
+			font-weight: 700;
+			font-size: 30px;
+			margin: 0;
+		}
+	}
+	#backdrop {
+		width: 45vw;
+		.middle {
+			.logoImg {
+				min-width: 1vw;
+				min-height: 1vh;
+				width: calc((40vw / var(--company-image-amount)) - 10px);
+				max-width: 20vw;
+			}
+		}
+	}
+	.actionList {
+		border-radius: 5px;
+		padding: 0;
+		overflow: hidden;
+	}
+	.desktopTop {
+		display: flex;
+		justify-content: center;
+		.left {
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+		}
+		.right {
+			margin: 0 2vw;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: space-around;
+		}
+	}
+	.moneyTooBig {
+		font-size: unset;
+	}
+	.releaseTooBig {
+		font-size: unset;
+	}
 }

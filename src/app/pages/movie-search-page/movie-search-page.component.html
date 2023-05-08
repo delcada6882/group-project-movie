@@ -19,7 +19,7 @@
 		>
 	</div>
 	<ion-spinner *ngIf="showLoading" class="loadingCircle"></ion-spinner>
-	<ion-card *ngFor="let item of movieList">
+	<!-- <ion-card *ngFor="let item of movieList">
 		<ion-card-header>
 			<ion-card-title>{{ item.original_title }}</ion-card-title>
 		</ion-card-header>
@@ -34,5 +34,11 @@
 			</h1>
 			<p>{{ item.overview }}</p>
 		</ion-card-content>
-	</ion-card>
+	</ion-card> -->
+	<app-movie-poster
+		[movieList]="movieList"
+		class="flex outline"
+		[anchorTag]="true"
+	>
+	</app-movie-poster>
 </ion-content>

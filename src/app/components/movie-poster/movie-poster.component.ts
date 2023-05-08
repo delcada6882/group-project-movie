@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Movie } from 'src/app/interfaces/api/movie';
 
 @Component({
   selector: 'app-movie-poster',
@@ -10,7 +11,11 @@ export class MoviePosterComponent implements OnInit {
   @Input() movieList: any = [];
   @Input() anchorTag: boolean = false;
 
+
+
   urlStart = 'https://image.tmdb.org/t/p/w500';
+
+  ifEmpty?: Array<any>;
 
 
   clickAnim(item: Element) {
@@ -23,6 +28,13 @@ export class MoviePosterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.movieList === undefined) {
+      this.ifEmpty = new Array(20).fill(0)
+    }
+    else {
+      this.ifEmpty = [];
+    }
+  }
 
 }

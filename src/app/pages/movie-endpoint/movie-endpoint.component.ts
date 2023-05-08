@@ -1,10 +1,11 @@
-import { Component, ElementRef, Input, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { IonModal, MenuController } from '@ionic/angular';
 import { IconPaths } from 'src/app/enums/icon-paths';
 import { Movie } from 'src/app/interfaces/api/movie';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import months from 'src/utility/constants/month';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-movie-endpoint',
@@ -34,6 +35,8 @@ export class MovieEndpointComponent implements OnInit {
 
   similarMovies?: any[];
 
+  cast?: any[];
+
   revenueText?: string;
 
   releaseDateText?: string;
@@ -50,6 +53,27 @@ export class MovieEndpointComponent implements OnInit {
   runtimeHeader?: string = 'Runtime: ';
   runtimeData?: string;
 
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name?: string;
+
+  @ViewChild(IonModal) modal?: IonModal;
+
+  cancel(item: IonModal) {
+    item?.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal?.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
+  }
+
+
 
   ngOnInit() {
     this.showLoading = true;
@@ -57,6 +81,7 @@ export class MovieEndpointComponent implements OnInit {
       this.activatedRoute.snapshot.paramMap.get('movieId') || '0'
     );
     this.showMovie();
+    this.showCast();
     this.getSimilarMovies();
     this.initTimeout();
   }
@@ -71,22 +96,26 @@ export class MovieEndpointComponent implements OnInit {
   moneyChange() {
     if (this.moneyHeader === 'Budget: ') {
       this.moneyHeader = 'Revenue: ';
-      if (this.movieData?.revenue === 0) {
-        this.moneyAmount = 'N/A';
+      if (this.movieData?.revenue !== 0) {
+        this.moneyAmount = (this.movieData?.revenue?.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).split('.')[0])
       }
-      this.moneyAmount = (this.movieData?.revenue?.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }))
+      else {
+        this.moneyAmount = "Unknown"
+      }
     } else {
       this.moneyHeader = 'Budget: ';
-      if (this.movieData?.budget === 0) {
-        this.moneyAmount = 'N/A';
+      if (this.movieData?.budget !== 0) {
+        this.moneyAmount = (this.movieData?.budget?.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).split('.')[0])
       }
-      this.moneyAmount = (this.movieData?.budget?.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }))
+      else {
+        this.moneyAmount = "Unknown"
+      }
     }
   }
   runtimeChange() {
@@ -114,10 +143,15 @@ export class MovieEndpointComponent implements OnInit {
           this.movieData.production_companies.length.toString()
         );
 
-        this.moneyAmount = (this.movieData?.budget?.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        }))
+        if (this.movieData?.budget !== 0) {
+          this.moneyAmount = (this.movieData?.budget?.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD'
+          }).split('.')[0])
+        }
+        else {
+          this.moneyAmount = "Unknown"
+        }
         this.runtimeData = this.movieData?.runtime?.toString() + ' minutes';
         this.releaseDateText =
           new Date(this.movieData?.release_date)
@@ -134,30 +168,35 @@ export class MovieEndpointComponent implements OnInit {
         if (this.movieData?.revenue === 0) {
           this.revenueText = 'Unknown';
         } else {
-          this.revenueText = this.movieData?.revenue?.toLocaleString(
-            'en-US',
-            { style: 'currency', currency: 'USD' }
-          );
+          this.revenueText = this.movieData?.revenue?.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          }).split('.')[0];
+
         }
 
         for (let x = 0; x < 2; x++) {
-          this.smallerTest = this.movieData?.genres[x].name;
-
-          console.log(IconPaths[this.smallerTest as keyof typeof IconPaths])
-          console.log(this.movieData.genres[x].name)
+          this.smallerTest = (this.movieData?.genres[x]?.name === undefined ? this.movieData?.genres[x]?.name : 'unknown');
           this.backDropIcons?.push(IconPaths[this.smallerTest as keyof typeof IconPaths]);
-          this.movieGenres?.push(this.movieData.genres[x].name)
+          this.movieGenres?.push(this.smallerTest)
         }
-
-        console.log(this.backDropIcons);
 
         this.showLoading = false;
       }
     );
   }
 
+  showCast() {
+    this.ApiCallService.getCastByMovie(Number(this.movieId)).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.cast = data.cast;
+        console.log(this.cast)
+      }
+    );
+  }
+
   testFunc() {
-    console.log('test');
     this.MenuCtrl.swipeGesture(false);
     clearTimeout(this.timeoutId);
     this.initTimeout();

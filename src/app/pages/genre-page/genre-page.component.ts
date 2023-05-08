@@ -16,7 +16,7 @@ export class GenrePageComponent implements OnInit {
   public folder!: string;
   private activatedRoute = inject(ActivatedRoute);
 
-  popularMovies: any = [];
+  // popularMovies: any = [];
   urlStart = 'https://image.tmdb.org/t/p/w500';
   pageNumVar = 1;
 
