@@ -119,6 +119,10 @@
 	overflow: hidden;
 	aspect-ratio: 1 / 1;
 	border-radius: 5px;
+	p {
+		justify-content: center;
+		align-items: center;
+	}
 }
 .actorDiv {
 	background-color: #fff;
@@ -226,6 +230,9 @@
 	}
 	.actorDiv {
 		background-color: var(--ion-color-step-200);
+		a {
+			text-decoration: none;
+		}
 	}
 }
 
@@ -247,12 +254,12 @@
 	.actorDiv {
 		transition: 0.2s;
 	}
-	// .actorDiv:hover {
-	// 	cursor: pointer;
-	// 	background-color: var(--ion-color-step-250);
-	// 	transform: translateY(-5px);
-	// 	transition: 0.2s;
-	// }
+	.actorDiv:hover {
+		cursor: pointer;
+		background-color: var(--ion-color-step-250);
+		transform: translateY(-5px);
+		transition: 0.2s;
+	}
 	.cast {
 		height: 22vh;
 	}

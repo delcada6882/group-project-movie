@@ -210,16 +210,23 @@
 	<h2>Cast:</h2>
 	<div class="cast">
 		<div class="actorDiv" *ngFor="let item of cast">
-			<div class="actorImg">
-				<ion-img
-					*ngIf="item.profile_path !== null"
-					src="{{ urlStart + item.profile_path }}"
-				></ion-img>
-				<div class="actorNoImg" *ngIf="item.profile_path === null">
-					<p>No Image Provided</p>
+			<a
+				target="_blank"
+				href="https://www.google.com/search?q={{
+					item.name.split(' ').join('+')
+				}}"
+			>
+				<div class="actorImg">
+					<ion-img
+						*ngIf="item.profile_path !== null"
+						src="{{ urlStart + item.profile_path }}"
+					></ion-img>
+					<div class="actorNoImg" *ngIf="item.profile_path === null">
+						<p>No Image Provided</p>
+					</div>
 				</div>
-			</div>
-			<p>{{ item.name }}</p>
+				<p>{{ item.name }}</p>
+			</a>
 		</div>
 		<div *ngIf="cast?.length === 0" class="unknownText">
 			<h3>Unknown</h3>
