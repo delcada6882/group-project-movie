@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PaginatorComponent } from 'src/app/components/paginator/paginator.component';
 import { MovieGenres } from 'src/app/enums/movie-genres';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
 
 @Component({
-  selector: 'app-genre-page',
-  templateUrl: './genre-page.component.html',
-  styleUrls: ['./genre-page.component.scss'],
+	selector: 'app-genre-page',
+	templateUrl: './genre-page.component.html',
+	styleUrls: ['./genre-page.component.scss'],
 })
 export class GenrePageComponent implements OnInit {
-
   constructor(private ApiCallService: ApiCallService) { }
 
   public folder!: string;
@@ -55,5 +55,4 @@ export class GenrePageComponent implements OnInit {
   }
 
   @ViewChild('child') child!: PaginatorComponent
-
 }

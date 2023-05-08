@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from './services/api-call.service';
-import { Movie } from './interfaces/api/movie';
 import { AuthService } from './services/auth/auth.service';
 @Component({
     selector: 'app-root',
@@ -11,7 +10,6 @@ export class AppComponent implements OnInit {
     public appPages = [
         { title: 'Profile', url: '/profile', icon: 'person' },
         { title: 'Movies', url: '/movies', icon: 'film' },
-        // { title: 'Spam', url: '/spam', icon: 'warning' },
     ];
     public categories = [
         { title: 'Popular', url: 'movies/popular', icon: 'sparkles' },
@@ -45,6 +43,5 @@ export class AppComponent implements OnInit {
         public authService: AuthService
     ) { }
 
-    ngOnInit() {
-    }
+	ngOnInit() {}
 }

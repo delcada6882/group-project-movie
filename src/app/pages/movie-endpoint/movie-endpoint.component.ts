@@ -3,14 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { IonModal, MenuController } from '@ionic/angular';
 import { IconPaths } from 'src/app/enums/icon-paths';
 import { Movie } from 'src/app/interfaces/api/movie';
+import { MovieList } from 'src/app/interfaces/api/movie-list';
 import { ApiCallService } from 'src/app/services/api-call.service';
 import months from 'src/utility/constants/month';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { MONTHS_OF_YEAR } from 'src/utility/constants/month';
 
 @Component({
-  selector: 'app-movie-endpoint',
-  templateUrl: './movie-endpoint.component.html',
-  styleUrls: ['./movie-endpoint.component.scss'],
+	selector: 'app-movie-endpoint',
+	templateUrl: './movie-endpoint.component.html',
+	styleUrls: ['./movie-endpoint.component.scss'],
 })
 export class MovieEndpointComponent implements OnInit {
   constructor(

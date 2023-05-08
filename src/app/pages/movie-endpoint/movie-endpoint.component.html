@@ -228,6 +228,7 @@
 	<h2>Similar Movies</h2>
 	<div class="similarMovies" (scroll)="testFunc()">
 		<app-movie-poster
+			*ngIf="similarMovies"
 			[movieList]="similarMovies"
 			class="outline list"
 			[anchorTag]="true"
