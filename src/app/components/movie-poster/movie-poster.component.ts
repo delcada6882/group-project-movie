@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Movie } from 'src/app/interfaces/api/movie';
 import { MovieList } from 'src/app/interfaces/api/movie-list';
 
 @Component({
@@ -12,15 +13,25 @@ export class MoviePosterComponent implements OnInit {
 
 	urlStart = 'https://image.tmdb.org/t/p/w500';
 
-	clickAnim(item: Element) {
-		console.log('hello');
-		item.classList.add('clickAnimClass');
-		item.addEventListener('animationend', () => {
-			item.classList.remove('clickAnimClass');
-		});
-	}
+  ifEmpty?: Array<any>;
 
-	constructor() {}
 
-	ngOnInit() {}
+  clickAnim(item: Element) {
+    console.log('hello')
+    item.classList.add('clickAnimClass');
+    item.addEventListener('animationend', () => {
+      item.classList.remove('clickAnimClass');
+    })
+  }
+
+  constructor() { }
+
+  ngOnInit() {
+    if (this.movieList === undefined) {
+      this.ifEmpty = new Array(20).fill(0)
+    }
+    else {
+      this.ifEmpty = [];
+    }
+  }
 }

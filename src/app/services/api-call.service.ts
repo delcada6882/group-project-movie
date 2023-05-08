@@ -57,10 +57,15 @@ export class ApiCallService {
 			`${this.searchMovieUrl}&language=en-US&query=${searchString}&page=1&include_adult=false`
 		);
 	}
-
 	public getPopularMovies(pageNum: number) {
 		return this.http.get<Api.Paginated<MovieList>>(
 			this.popularUrl + `&page=${String(pageNum)}`
 		);
 	}
+
+    getCastByMovie(movieId: Number) {
+        return this.http.get<MovieList>(
+            `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=8f698de309d981464d08b5325ff05667`
+        );
+    }
 }

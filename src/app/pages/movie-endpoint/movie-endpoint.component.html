@@ -7,68 +7,226 @@
 <ion-content [fullscreen]="true" *ngIf="!showLoading">
 	<app-page-header headerTitle="{{ movieData?.title }}" [contentChild]="true">
 	</app-page-header>
-	<div id="moviePoster">
-		<ion-img
-			*ngIf="movieData?.poster_path"
-			src="{{ urlStart + movieData?.poster_path }}"
-			class="posterImg"
-		/>
-	</div>
-	<p *ngIf="movieData?.tagline !== ''" class="tagline">
-		{{ movieData?.tagline }}
-	</p>
-	<div id="backdrop">
-		<div class="top">
-			<a
-				*ngIf="backDropIcons && movieGenres"
-				href="movies/genre/{{ movieGenres[0] }}"
-			>
-				<ion-icon name="{{ backDropIcons[0] }}"> </ion-icon>
-			</a>
-			<p class="madeBy">Made By:</p>
-			<a
-				*ngIf="backDropIcons && movieGenres"
-				href="movies/genre/{{ movieGenres[1] }}"
-			>
-				<ion-icon name="{{ backDropIcons[1] }}"> </ion-icon>
-			</a>
-		</div>
-		<div class="middle">
-			<div *ngFor="let item of movieData?.production_companies">
+	<div class="desktopTop">
+		<div class="left">
+			<div id="moviePoster">
 				<ion-img
-					class="logoImg"
-					*ngIf="item.logo_path !== null"
-					src="{{ urlStart + item.logo_path }}"
+					*ngIf="movieData?.poster_path"
+					src="{{ urlStart + movieData?.poster_path }}"
+					class="posterImg"
+				/>
+				<div
+					class="posterImg noImage"
+					*ngIf="movieData?.poster_path === null"
 				>
-				</ion-img>
-				<div class="logoImg" *ngIf="item.logo_path === null">
-					<p>{{ item.name }}</p>
+					<p>{{ movieData?.title }}</p>
 				</div>
 			</div>
-		</div>
-		<div class="bottom">
-			<p (click)="runtimeChange()">
-				<span> {{ runtimeHeader }} </span>
-				<span> {{ runtimeData }} </span>
-			</p>
-			<p>
-				<span>Release Date:</span> <span>{{ releaseDateText }}</span>
-			</p>
-			<p (click)="moneyChange()">
-				<span> {{ moneyHeader }} </span>
-				<span>
-					{{ moneyAmount }}
-				</span>
+			<p *ngIf="movieData?.tagline !== ''" class="tagline">
+				{{ movieData?.tagline }}
 			</p>
 		</div>
+		<div class="right">
+			<ion-list id="backdrop">
+				<div class="top">
+					<p class="madeBy">Made By:</p>
+				</div>
+				<div class="middle">
+					<div
+						*ngFor="let item of movieData?.production_companies"
+						class="backGroundWhite"
+					>
+						<ion-img
+							class="logoImg"
+							*ngIf="item.logo_path !== null"
+							src="{{ urlStart + item.logo_path }}"
+						>
+						</ion-img>
+
+						<div class="logoImg" *ngIf="item.logo_path === null">
+							<p>{{ item.name }}</p>
+						</div>
+					</div>
+					<div *ngIf="movieData?.production_companies?.length === 0">
+						<p class="unknown">Unknown</p>
+					</div>
+				</div>
+				<div class="bottom">
+					<p
+						(click)="runtimeChange()"
+						class="backGroundWhite runTime"
+					>
+						<span> {{ runtimeHeader }} </span>
+						<span> {{ runtimeData }} </span>
+					</p>
+					<p class="backGroundWhite">
+						<span>Release Date:</span>
+						<span
+							[ngClass]="
+								(releaseDateText?.length || '') > 14
+									? 'releaseTooBig'
+									: ''
+							"
+							>{{ releaseDateText }}</span
+						>
+					</p>
+					<p
+						class="backGroundWhite moneyHeader"
+						(click)="moneyChange()"
+					>
+						<span> {{ moneyHeader }} </span>
+						<span
+							class="moneyAmount"
+							[ngClass]="
+								(moneyAmount?.length || '') > 7
+									? 'moneyTooBig'
+									: ''
+							"
+						>
+							{{ moneyAmount }}
+						</span>
+					</p>
+				</div>
+			</ion-list>
+			<ion-list class="actionList" color="primary">
+				<ion-item
+					id="open-modal"
+					class="ion-activatable ripple-parent rectangle listItem"
+					lines="full"
+					detail
+				>
+					<ion-label>Description</ion-label>
+					<ion-ripple-effect></ion-ripple-effect>
+					<ion-modal
+						trigger="open-modal"
+						#description
+						(willDismiss)="onWillDismiss($event)"
+					>
+						<ng-template>
+							<ion-header>
+								<ion-toolbar>
+									<ion-buttons slot="start">
+										<ion-button
+											(click)="cancel(description)"
+										>
+											<ion-icon
+												name="arrow-back-outline"
+											></ion-icon>
+										</ion-button>
+									</ion-buttons>
+									<ion-title>Description</ion-title>
+								</ion-toolbar>
+							</ion-header>
+							<ion-content class="ion-padding">
+								<ion-item class="modalText">
+									<p>{{ movieData?.overview }}</p>
+								</ion-item>
+							</ion-content>
+						</ng-template>
+					</ion-modal>
+				</ion-item>
+				<ion-item
+					lines="full"
+					id="open-modal02"
+					class="ion-activatable ripple-parent rectangle listItem"
+					detail
+				>
+					<ion-label>Genres</ion-label>
+					<ion-ripple-effect></ion-ripple-effect>
+					<ion-modal
+						#genres
+						trigger="open-modal02"
+						(willDismiss)="onWillDismiss($event)"
+					>
+						<ng-template>
+							<ion-header>
+								<ion-toolbar>
+									<ion-buttons slot="start">
+										<ion-button (click)="cancel(genres)">
+											<ion-icon
+												name="arrow-back-outline"
+											></ion-icon>
+										</ion-button>
+									</ion-buttons>
+									<ion-title>Genres</ion-title>
+								</ion-toolbar>
+							</ion-header>
+							<ion-content class="ion-padding">
+								<ion-list class="modalText">
+									<ion-item
+										*ngFor="let item of movieData?.genres"
+									>
+										{{ item.name }}
+									</ion-item>
+								</ion-list>
+							</ion-content>
+						</ng-template>
+					</ion-modal>
+				</ion-item>
+				<ion-item
+					lines="full"
+					id="open-modal03"
+					class="ion-activatable ripple-parent rectangle listItem"
+					detail
+				>
+					<ion-label>Languages</ion-label>
+					<ion-ripple-effect></ion-ripple-effect>
+					<ion-modal
+						#languages
+						trigger="open-modal03"
+						(willDismiss)="onWillDismiss($event)"
+					>
+						<ng-template>
+							<ion-header>
+								<ion-toolbar>
+									<ion-buttons slot="start">
+										<ion-button (click)="cancel(languages)">
+											<ion-icon
+												name="arrow-back-outline"
+											></ion-icon>
+										</ion-button>
+									</ion-buttons>
+									<ion-title>Languages</ion-title>
+								</ion-toolbar>
+							</ion-header>
+							<ion-content class="ion-padding">
+								<ion-list class="modalText">
+									<ion-item
+										*ngFor="
+											let item of movieData?.spoken_languages
+										"
+									>
+										{{ item.name }}
+									</ion-item>
+								</ion-list>
+							</ion-content>
+						</ng-template>
+					</ion-modal>
+				</ion-item>
+			</ion-list>
+		</div>
 	</div>
-	<div>
-		<p id="description">{{ movieData?.overview }}</p>
-		<p>Genres:</p>
-		<p *ngFor="let item of movieData?.genres">{{ item.name }}</p>
-		<p>Status {{ movieData?.status }}</p>
+
+	<h2>Cast:</h2>
+	<div class="cast">
+		<div class="actorDiv" *ngFor="let item of cast">
+			<div class="actorImg">
+				<ion-img
+					*ngIf="item.profile_path !== null"
+					src="{{ urlStart + item.profile_path }}"
+				></ion-img>
+				<div class="actorNoImg" *ngIf="item.profile_path === null">
+					<p>No Image Provided</p>
+				</div>
+			</div>
+			<p>{{ item.name }}</p>
+		</div>
+		<div *ngIf="cast?.length === 0" class="unknownText">
+			<h3>Unknown</h3>
+		</div>
 	</div>
-	<div class="similarMovies" (scroll)="scrollTimeout()">
+	<h2>Similar Movies</h2>
+	<div class="similarMovies" (scroll)="testFunc()">
 		<app-movie-poster
 			*ngIf="similarMovies"
 			[movieList]="similarMovies"

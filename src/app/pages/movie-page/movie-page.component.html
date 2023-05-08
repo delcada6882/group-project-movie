@@ -9,13 +9,138 @@
 			<div class="popularMovies" #popShowMore>
 				<app-movie-poster
 					[movieList]="popularMovies"
-					class="flex noClick"
+					class="flex noClick noHover"
 					[anchorTag]="false"
 				></app-movie-poster>
 			</div>
 		</a>
 		<div class="showMoreSection">
 			<a href="movies/popular">
+				<ion-button color="secondary" class="showMoreButton"
+					>Show More</ion-button
+				>
+				<!-- TODO: If possible, find a way to include that ion-nav-link while not removing the menu icon -->
+			</a>
+		</div>
+	</div>
+	<div class="popularMoviesSection">
+		<h1>Family Movies</h1>
+		<a href="movies/genre/Family">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="familyMovies"
+					class="flex noClick noHover"
+					[anchorTag]="false"
+				></app-movie-poster>
+			</div>
+		</a>
+		<div class="showMoreSection">
+			<a href="movies/genre/Family">
+				<ion-button color="secondary" class="showMoreButton"
+					>Show More</ion-button
+				>
+				<!-- TODO: If possible, find a way to include that ion-nav-link while not removing the menu icon -->
+			</a>
+		</div>
+	</div>
+
+	<div class="popularMoviesSection">
+		<h1>Action Movies</h1>
+		<a href="movies/genre/Action">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="actionMovies"
+					class="flex noClick noHover"
+					[anchorTag]="false"
+				></app-movie-poster>
+			</div>
+		</a>
+		<div class="showMoreSection">
+			<a href="movies/genre/Action">
+				<ion-button color="secondary" class="showMoreButton"
+					>Show More</ion-button
+				>
+				<!-- TODO: If possible, find a way to include that ion-nav-link while not removing the menu icon -->
+			</a>
+		</div>
+	</div>
+
+	<div class="popularMoviesSection">
+		<h1>Comedy Movies</h1>
+		<a href="movies/genre/Comedy">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="comedyMovies"
+					class="flex noClick noHover"
+					[anchorTag]="false"
+				></app-movie-poster>
+			</div>
+		</a>
+		<div class="showMoreSection">
+			<a href="movies/genre/Comedy">
+				<ion-button color="secondary" class="showMoreButton"
+					>Show More</ion-button
+				>
+				<!-- TODO: If possible, find a way to include that ion-nav-link while not removing the menu icon -->
+			</a>
+		</div>
+	</div>
+
+	<div class="popularMoviesSection">
+		<h1>Horror Movies</h1>
+		<a href="movies/genre/Horror">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="horrorMovies"
+					class="flex noClick noHover"
+					[anchorTag]="false"
+				></app-movie-poster>
+			</div>
+		</a>
+		<div class="showMoreSection">
+			<a href="movies/genre/Horror">
+				<ion-button color="secondary" class="showMoreButton"
+					>Show More</ion-button
+				>
+				<!-- TODO: If possible, find a way to include that ion-nav-link while not removing the menu icon -->
+			</a>
+		</div>
+	</div>
+
+	<div class="popularMoviesSection">
+		<h1>Fantasy Movies</h1>
+		<a href="movies/genre/Fantasy">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="fantasyMovies"
+					class="flex noClick noHover"
+					[anchorTag]="false"
+				></app-movie-poster>
+			</div>
+		</a>
+		<div class="showMoreSection">
+			<a href="movies/genre/Fantasy">
+				<ion-button color="secondary" class="showMoreButton"
+					>Show More</ion-button
+				>
+				<!-- TODO: If possible, find a way to include that ion-nav-link while not removing the menu icon -->
+			</a>
+		</div>
+	</div>
+
+	<div class="popularMoviesSection">
+		<h1>Drama Movies</h1>
+		<a href="movies/genre/Drama">
+			<div class="popularMovies" #popShowMore>
+				<app-movie-poster
+					[movieList]="dramaMovies"
+					class="flex noClick noHover"
+					[anchorTag]="false"
+				></app-movie-poster>
+			</div>
+		</a>
+		<div class="showMoreSection">
+			<a href="movies/genre/Drama">
 				<ion-button color="secondary" class="showMoreButton"
 					>Show More</ion-button
 				>

@@ -1,6 +1,6 @@
 <ion-grid class="paginator">
 	<ion-row>
-		<ion-col (click)="backArrow()">&lt;</ion-col>
+		<ion-col class="arrow" (click)="backArrow()">&lt;</ion-col>
 		<ion-col size="8">
 			<div class="innerNum" id="paginatorScroll">
 				<p
@@ -13,6 +13,6 @@
 				</p>
 			</div>
 		</ion-col>
-		<ion-col (click)="forwardArrow()">&gt;</ion-col>
+		<ion-col class="arrow" (click)="forwardArrow()">&gt;</ion-col>
 	</ion-row>
 </ion-grid>

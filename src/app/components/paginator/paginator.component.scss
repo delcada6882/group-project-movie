@@ -42,3 +42,18 @@
 	justify-content: center;
 	min-width: 35px;
 }
+.paginatorNum:hover {
+	cursor: pointer;
+}
+.arrow:hover {
+	cursor: pointer;
+}
+
+@media (min-width: 1500px) {
+	.paginator::ng-deep {
+		ion-col {
+			display: flex;
+			justify-content: center;
+		}
+	}
+}

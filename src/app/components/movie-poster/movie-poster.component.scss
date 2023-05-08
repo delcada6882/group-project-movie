@@ -26,9 +26,15 @@
 @mixin standardMovieCard() {
 	.popularMovieCard {
 		overflow: hidden;
+		transition: 0.2s;
 		width: 40%;
 		border-radius: 5px;
 		margin: 2% 0;
+	}
+	.popularMovieCard:hover {
+		transition: 0.2s;
+		cursor: pointer;
+		transform: translateY(-5px);
 	}
 }
 
@@ -44,8 +50,14 @@
 		}
 	}
 }
-
 :host {
+	&.noHover {
+		.popularMovieCard {
+			&:hover {
+				transform: translateY(0);
+			}
+		}
+	}
 	&.flex {
 		display: flex;
 		justify-content: space-around;
@@ -81,6 +93,9 @@
 			text-decoration: none;
 		}
 	}
+	.popularMovieCard:hover {
+		outline-color: var(--ion-color-step-200);
+	}
 
 	@include standardMovieCard();
 }
@@ -91,9 +106,17 @@
 			display: flex;
 			justify-content: space-around;
 			flex-flow: row wrap;
+			.loadingImages {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+			}
 		}
 		&.outline .popularMovieCard {
 			outline: 3px solid var(--ion-border-color);
+		}
+		&.outline .popularMovieCard:hover {
+			outline-color: var(--ion-color-step-200);
 		}
 		&.list {
 			display: flex;
@@ -103,6 +126,12 @@
 			.popularMovieCard {
 				margin: 10px;
 				width: 30%;
+			}
+			.loadingImages {
+				display: flex;
+				flex-flow: row nowrap;
+				overflow: scroll;
+				width: 900vw;
 			}
 		}
 		&:not(.noClick) {
@@ -119,6 +148,45 @@
 				text-decoration: none;
 			}
 		}
+		.skeletonMovieCard {
+			aspect-ratio: 2 / 3;
+			width: 40vw;
+			border-radius: 5px;
+		}
 	}
 	@include standardMovieCard();
+}
+@media (min-width: 1500px) {
+	:host {
+		&.flex {
+			.popularMovieCard {
+				width: 23%;
+			}
+			display: flex;
+			justify-content: space-around;
+			flex-flow: row wrap;
+			.loadingImages {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-around;
+			}
+		}
+
+		&.list {
+			padding-bottom: 30px;
+			width: 200vw;
+			// .popularMovieCard {
+			// 	width: 10vw;
+			// }
+		}
+		.popularMovieCard {
+			transition: 0.2s;
+		}
+		.popularMovieCard:hover {
+			transition: 0.2s;
+			cursor: pointer;
+			transform: translateY(-5px);
+			outline-color: var(--ion-color-step-200);
+		}
+	}
 }
