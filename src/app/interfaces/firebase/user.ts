@@ -2,7 +2,7 @@ import firebase from 'firebase/compat';
 
 export interface User {
 	// Customem Properties
-	bookmarks?: string | null;
+	bookmarks?: string[] | null;
 	adult?: boolean | null;
 	allowEmailNotifications?: boolean | null;
 	prefersDarkMode?: boolean | null;

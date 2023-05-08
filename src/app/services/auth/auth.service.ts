@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
 	AngularFirestore,
@@ -23,7 +23,7 @@ const SUCCESS_REDIRECT = '/profile';
 @Injectable({
 	providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnInit {
 	constructor(
 		public AngularFirestore: AngularFirestore,
 		public AngularFireAuth: AngularFireAuth,
@@ -31,10 +31,18 @@ export class AuthService {
 		public NgZone: NgZone
 	) {
 		this.AngularFireAuth.authState.subscribe((user) => {
-			if (user) localStorage.setItem('user', JSON.stringify(user));
-			else localStorage.removeItem('user');
+			if (!user) return localStorage.removeItem('user');
+			const userRef = this.AngularFirestore.doc<User>(
+				`users/${user?.uid}`
+			);
+			userRef.valueChanges().subscribe((user) => {
+				if (!user) return localStorage.removeItem('user');
+				localStorage.setItem('user', JSON.stringify(user));
+			});
 		});
 	}
+
+	ngOnInit() {}
 
 	get isLoggedIn(): boolean {
 		const user = this.userData;
@@ -49,8 +57,6 @@ export class AuthService {
 	}
 
 	async SignIn(email: string, password: string) {
-		console.log(email, password);
-
 		try {
 			const result =
 				await this.AngularFireAuth.signInWithEmailAndPassword(
@@ -78,7 +84,6 @@ export class AuthService {
 					email,
 					password
 				);
-			/* Call the SendVerificaitonMail() function when new user sign up and returns promise */
 			if (changedProfileAttributes)
 				await result.user?.updateProfile(changedProfileAttributes);
 			this.SendVerificationMail();
@@ -112,10 +117,14 @@ export class AuthService {
 		try {
 			const user = await this.AngularFireAuth.currentUser;
 			if (!user) return;
-			if (miscChangeAttr) await user.updateProfile(miscChangeAttr);
-			if (email) {
-				await this.changeEmail(email);
+			const userRef: AngularFirestoreDocument<User> =
+				this.AngularFirestore.doc<User>(`users/${user.uid}`);
+
+			if (miscChangeAttr) {
+				await userRef.update(miscChangeAttr);
+				await user.updateProfile(miscChangeAttr);
 			}
+			if (email) await this.changeEmail(email);
 			this.SetUserData(user);
 		} catch (err) {
 			handleError(err);
@@ -124,15 +133,15 @@ export class AuthService {
 
 	async SetUserData(user: firebase.User | null) {
 		if (!user) return;
-		localStorage.setItem('user', JSON.stringify(user));
 		const userRef: AngularFirestoreDocument<User> =
 			this.AngularFirestore.doc<User>(`users/${user.uid}`);
+
 		return await userRef.set(
 			{
 				displayName: user.displayName,
 				email: user.email,
 				photoURL: user.photoURL,
-				emailVerified: true,
+				emailVerified: user.emailVerified,
 				uid: user.uid,
 			},
 			{

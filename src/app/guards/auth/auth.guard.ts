@@ -16,11 +16,10 @@ class PermissionsService {
 	canActivate(
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
-	): boolean | Promise<boolean> {
-		if (this.authService.isLoggedIn !== true) {
+	): Observable<boolean> | Promise<boolean> | boolean {
+		if (this.authService.isLoggedIn !== true)
 			return this.router.navigate(['login']);
-		}
-		return true;
+		else return true;
 	}
 }
 
