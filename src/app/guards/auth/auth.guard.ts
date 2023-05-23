@@ -5,18 +5,19 @@ import {
 	Router,
 	CanActivateFn,
 } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 class PermissionsService {
-	constructor(private router: Router, public authService: AuthService) {}
+	constructor(private router: Router, public authService: AuthService) { }
 
 	canActivate(
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
-	): Observable<boolean> | Promise<boolean> | boolean {
+	): boolean | Promise<boolean> {
 		if (this.authService.isLoggedIn !== true)
 			return this.router.navigate(['login']);
 		else return true;

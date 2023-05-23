@@ -48,12 +48,9 @@
 .arrow:hover {
 	cursor: pointer;
 }
-
-@media (min-width: 1500px) {
-	.paginator::ng-deep {
-		ion-col {
-			display: flex;
-			justify-content: center;
-		}
+.paginator::ng-deep {
+	ion-col {
+		display: flex;
+		justify-content: center;
 	}
 }
