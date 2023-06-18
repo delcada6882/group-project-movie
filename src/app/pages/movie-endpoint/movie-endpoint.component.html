@@ -118,6 +118,10 @@
 								</ion-toolbar>
 							</ion-header>
 							<ion-content class="ion-padding">
+								<h2 class="descriptionTitle">
+									{{ movieData?.title }}
+								</h2>
+
 								<ion-item class="modalText">
 									<p>{{ movieData?.overview }}</p>
 								</ion-item>
@@ -209,7 +213,12 @@
 
 	<h2>Cast:</h2>
 	<div class="cast">
-		<div class="actorDiv" *ngFor="let item of cast">
+		<div
+			class="actorDiv"
+			*ngFor="let item of cast"
+			#actorCard
+			(click)="clickAnim(actorCard)"
+		>
 			<a
 				target="_blank"
 				href="https://www.google.com/search?q={{
@@ -225,14 +234,14 @@
 						<p>No Image Provided</p>
 					</div>
 				</div>
-				<p>{{ item.name }}</p>
+				<p class="actorText">{{ item.name }}</p>
 			</a>
 		</div>
 		<div *ngIf="cast?.length === 0" class="unknownText">
 			<h3>Unknown</h3>
 		</div>
 	</div>
-	<h2>Similar Movies</h2>
+	<h2>Similar Movies:</h2>
 	<div class="similarMovies" (scroll)="testFunc()">
 		<app-movie-poster
 			*ngIf="similarMovies"

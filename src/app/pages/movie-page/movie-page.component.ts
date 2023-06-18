@@ -5,21 +5,17 @@ import { MovieGenres } from 'src/app/enums/movie-genres';
 import { MovieList } from 'src/app/interfaces/api/movie-list';
 
 @Component({
-	selector: 'app-movie-page',
-	templateUrl: './movie-page.component.html',
-	styleUrls: ['./movie-page.component.scss'],
+  selector: 'app-movie-page',
+  templateUrl: './movie-page.component.html',
+  styleUrls: ['./movie-page.component.scss'],
 })
 export class MoviePageComponent implements OnInit {
-	public popularMovies: MovieList[] = [];
-	public buttonText = 'Show More';
+  public popularMovies: MovieList[] = [];
+  public buttonText = 'Show More';
 
-	componentPop = PopularPageComponent;
+  componentPop = PopularPageComponent;
 
-	constructor(private ApiCallService: ApiCallService) {}
-
-	ngOnInit() {
-		this.showPopularMovies(1);
-	}
+  constructor(private ApiCallService: ApiCallService) { }
 
   familyMovies: any = [];
   actionMovies: any = [];
