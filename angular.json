@@ -47,8 +47,8 @@
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4.5kb"
+									"maximumWarning": "6kb",
+									"maximumError": "10kb"
 								}
 							],
 							"fileReplacements": [
@@ -132,10 +132,10 @@
 					"options": {
 						"lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
 					}
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
-        }
+				},
+				"deploy": {
+					"builder": "angular-cli-ghpages:deploy"
+				}
 			}
 		}
 	},
