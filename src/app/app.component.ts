@@ -14,19 +14,19 @@ export class AppComponent implements OnInit {
     public categories = [
         { title: 'Popular', url: 'movies/popular', icon: 'sparkles' },
         { title: 'Family', url: 'movies/genre/Family', icon: 'people' },
-        { title: 'Action', url: 'movies/genre/Action', src: '/icon/gun.svg' },
+        { title: 'Action', url: 'movies/genre/Action', src: '../assets/icon/gun.svg' },
         {
             title: 'Comedy',
             url: 'movies/genre/Comedy',
-            src: '/icon/laugh.svg',
+            src: '../assets/icon/laugh.svg',
         },
         { title: 'Horror', url: 'movies/genre/Horror', icon: 'skull' },
         {
             title: 'Fantasy',
             url: 'movies/genre/Fantasy',
-            src: '/icon/dragon-head.svg',
+            src: '../assets/icon/dragon-head.svg',
         },
-        { title: 'Drama', url: 'movies/genre/Drama', src: '/icon/drama-masks.svg' },
+        { title: 'Drama', url: 'movies/genre/Drama', src: '../assets/icon/drama-masks.svg' },
     ];
 
     public bookmarks = [
