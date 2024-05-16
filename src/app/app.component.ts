@@ -8,7 +8,7 @@ import { AuthService } from './services/auth/auth.service';
 })
 export class AppComponent implements OnInit {
     public appPages = [
-        { title: 'Profile', url: '/profile', icon: 'person' },
+        { title: 'Profile haha', url: '/profile', icon: 'person' },
         { title: 'Movies', url: '/movies', icon: 'film' },
     ];
     public categories = [
