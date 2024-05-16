@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiCallService } from './services/api-call.service';
 import { AuthService } from './services/auth/auth.service';
+
+// import dragonHead from './assets/icon/dragon-head.svg';
+
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
@@ -24,7 +27,8 @@ export class AppComponent implements OnInit {
         {
             title: 'Fantasy',
             url: 'movies/genre/Fantasy',
-            src: '../assets/icon/dragon-head.svg',
+            src: "assets/icon/dragon-head.svg",
+            
         },
         { title: 'Drama', url: 'movies/genre/Drama', src: '../assets/icon/drama-masks.svg' },
     ];
